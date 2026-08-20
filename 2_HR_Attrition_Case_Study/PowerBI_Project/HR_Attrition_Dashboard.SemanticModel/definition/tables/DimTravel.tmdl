@@ -1,0 +1,30 @@
+table DimTravel
+	lineageTag: a86c1c0b-d874-4b15-82bb-bc8cadb999d0
+
+	column BusinessTravel
+		dataType: string
+		lineageTag: ee688b02-dd31-44f9-9ba8-f989f198f98e
+		summarizeBy: none
+		sourceColumn: BusinessTravel
+
+	column TravelKey
+		dataType: int64
+		isHidden
+		lineageTag: cf107134-f34e-4fec-bbcb-5cf880b81f9f
+		summarizeBy: none
+		sourceColumn: TravelKey
+
+	partition DimTravel = m
+		mode: import
+		source =
+				let
+				    Source = Employees_Raw,
+				    KeptColumns = Table.SelectColumns(Source, {"BusinessTravel"}),
+				    RemovedDuplicates = Table.Distinct(KeptColumns),
+				    Sorted = Table.Sort(RemovedDuplicates, {{"BusinessTravel", Order.Ascending}}),
+				    AddedKey = Table.AddIndexColumn(Sorted, "TravelKey", 1, 1, Int64.Type)
+				in
+				    AddedKey
+
+	annotation PBI_ResultType = Table
+

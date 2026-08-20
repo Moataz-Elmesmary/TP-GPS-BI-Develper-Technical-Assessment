@@ -1,0 +1,16 @@
+expression DataFile = "C:\Users\core2duo\Downloads\TP_Assessment_Solution\2_HR_Attrition_Case_Study\data\HR_Attrition_CaseStudy_Source.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 62be1911-26d1-4427-93cf-40003741159d
+
+	annotation PBI_ResultType = Text
+
+expression Employees_Raw =
+		let
+		    Source = Excel.Workbook(File.Contents(DataFile), null, true),
+		    Sheet = Source{[Item="WA_Fn-UseC_-HR-Employee-Attriti", Kind="Sheet"]}[Data],
+		    PromotedHeaders = Table.PromoteHeaders(Sheet, [PromoteAllScalars=true]),
+		    ChangedTypes = Table.TransformColumnTypes(PromotedHeaders, {{"Age", Int64.Type}, {"Attrition", type text}, {"BusinessTravel", type text}, {"DailyRate", Int64.Type}, {"Department", type text}, {"DistanceFromHome", Int64.Type}, {"Education", Int64.Type}, {"EducationField", type text}, {"EmployeeCount", Int64.Type}, {"EmployeeNumber", Int64.Type}, {"EnvironmentSatisfaction", Int64.Type}, {"Gender", type text}, {"HourlyRate", Int64.Type}, {"JobInvolvement", Int64.Type}, {"JobLevel", Int64.Type}, {"JobRole", type text}, {"JobSatisfaction", Int64.Type}, {"MaritalStatus", type text}, {"MonthlyIncome", Int64.Type}, {"MonthlyRate", Int64.Type}, {"NumCompaniesWorked", Int64.Type}, {"Over18", type text}, {"OverTime", type text}, {"PercentSalaryHike", Int64.Type}, {"PerformanceRating", Int64.Type}, {"RelationshipSatisfaction", Int64.Type}, {"StandardHours", Int64.Type}, {"StockOptionLevel", Int64.Type}, {"TotalWorkingYears", Int64.Type}, {"TrainingTimesLastYear", Int64.Type}, {"WorkLifeBalance", Int64.Type}, {"YearsAtCompany", Int64.Type}, {"YearsInCurrentRole", Int64.Type}, {"YearsSinceLastPromotion", Int64.Type}, {"YearsWithCurrManager", Int64.Type}}),
+		    RemovedConstantColumns = Table.RemoveColumns(ChangedTypes, {"EmployeeCount", "Over18", "StandardHours"})
+		in
+		    RemovedConstantColumns
+	lineageTag: 7c4607eb-3d2f-4053-8e7d-fe1ccc4c509e
+

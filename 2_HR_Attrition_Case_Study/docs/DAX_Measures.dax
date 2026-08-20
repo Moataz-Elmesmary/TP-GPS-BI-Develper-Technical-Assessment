@@ -1,0 +1,200 @@
+// ============================================================================
+// HR ATTRITION - DAX MEASURE LIBRARY (Task 2: measures using VARIABLES)
+// Model: FactEmployee (grain = 1 row per employee)
+//        DimDepartment, DimJobRole, DimEducation, DimDemographics, DimTravel
+// Put all measures in a dedicated empty table: _Measures
+// ============================================================================
+
+// ----------------------------------------------------------------- Core KPIs
+Total Employees =
+COUNTROWS ( FactEmployee )
+
+Leavers =
+VAR _leavers =
+    CALCULATE ( COUNTROWS ( FactEmployee ), FactEmployee[Attrition] = "Yes" )
+RETURN
+    COALESCE ( _leavers, 0 )
+
+Active Employees =
+VAR _total = [Total Employees]
+VAR _left  = [Leavers]
+RETURN
+    _total - _left
+
+Attrition Rate % =
+VAR _leavers = [Leavers]
+VAR _total   = [Total Employees]
+RETURN
+    DIVIDE ( _leavers, _total )            // format as percentage, 1 decimal
+
+// -------------------------------------------------- Benchmark & delta logic
+Attrition Rate (Company) % =
+// company-wide benchmark that ignores every slicer/filter on the visual
+VAR _allLeavers =
+    CALCULATE ( [Leavers], REMOVEFILTERS () )
+VAR _allTotal =
+    CALCULATE ( [Total Employees], REMOVEFILTERS () )
+RETURN
+    DIVIDE ( _allLeavers, _allTotal )
+
+Attrition vs Company (pp) =
+// how far the selected segment sits above/below the 16.1% benchmark
+VAR _segment = [Attrition Rate %]
+VAR _company = [Attrition Rate (Company) %]
+RETURN
+    _segment - _company                    // format as percentage points
+
+Attrition Risk Flag =
+// text KPI used for conditional formatting on tables/matrices
+VAR _delta = [Attrition vs Company (pp)]
+RETURN
+    SWITCH (
+        TRUE (),
+        _delta >= 0.10, "🔴 Critical",
+        _delta >= 0.03, "🟠 Elevated",
+        _delta <= -0.05, "🟢 Healthy",
+        "🟡 Watch"
+    )
+
+// ------------------------------------------------------------- Compensation
+Avg Monthly Income =
+AVERAGE ( FactEmployee[MonthlyIncome] )
+
+Avg Income Leavers =
+VAR _avg =
+    CALCULATE ( AVERAGE ( FactEmployee[MonthlyIncome] ),
+                FactEmployee[Attrition] = "Yes" )
+RETURN
+    _avg
+
+Avg Income Stayers =
+VAR _avg =
+    CALCULATE ( AVERAGE ( FactEmployee[MonthlyIncome] ),
+                FactEmployee[Attrition] = "No" )
+RETURN
+    _avg
+
+Income Gap (Stayers - Leavers) =
+// positive gap = leavers were paid below their peers -> pay-driven attrition
+VAR _stay  = [Avg Income Stayers]
+VAR _leave = [Avg Income Leavers]
+RETURN
+    _stay - _leave
+
+Income Gap % =
+VAR _gap  = [Income Gap (Stayers - Leavers)]
+VAR _stay = [Avg Income Stayers]
+RETURN
+    DIVIDE ( _gap, _stay )
+
+// -------------------------------------------------------------- Cost impact
+Estimated Replacement Cost =
+// industry rule of thumb: replacing an employee costs ~6 months of salary
+VAR _costPerLeaver = [Avg Income Leavers] * 6
+VAR _leavers       = [Leavers]
+RETURN
+    _costPerLeaver * _leavers              // format as currency
+
+// --------------------------------------------------------------- OT drivers
+Attrition Rate OT % =
+VAR _l = CALCULATE ( [Leavers],        FactEmployee[OverTime] = "Yes" )
+VAR _t = CALCULATE ( [Total Employees], FactEmployee[OverTime] = "Yes" )
+RETURN
+    DIVIDE ( _l, _t )
+
+Attrition Rate No-OT % =
+VAR _l = CALCULATE ( [Leavers],        FactEmployee[OverTime] = "No" )
+VAR _t = CALCULATE ( [Total Employees], FactEmployee[OverTime] = "No" )
+RETURN
+    DIVIDE ( _l, _t )
+
+OverTime Risk Multiplier =
+// 30.5% vs 10.4%  ->  ~2.9x
+VAR _ot   = [Attrition Rate OT %]
+VAR _noOt = [Attrition Rate No-OT %]
+RETURN
+    DIVIDE ( _ot, _noOt )
+
+// ----------------------------------------------------------- Segment shares
+% of Total Leavers =
+// contribution of the selected segment to the 237 total leavers
+VAR _segmentLeavers = [Leavers]
+VAR _allLeavers     = CALCULATE ( [Leavers], REMOVEFILTERS () )
+RETURN
+    DIVIDE ( _segmentLeavers, _allLeavers )
+
+High-Risk Headcount =
+// employees who match the profile that loses ~1 of 2 people:
+// OverTime + (JobLevel 1 or income < 2500)
+VAR _risk =
+    CALCULATE (
+        COUNTROWS ( FactEmployee ),
+        FactEmployee[Attrition] = "No",
+        FactEmployee[OverTime] = "Yes",
+        FactEmployee[JobLevel] = 1
+    )
+RETURN
+    _risk
+
+// -------------------------------------------------------------- Sat scores
+Avg Job Satisfaction =
+AVERAGE ( FactEmployee[JobSatisfaction] )
+
+Low-Satisfaction Share % =
+VAR _low =
+    CALCULATE ( COUNTROWS ( FactEmployee ), FactEmployee[JobSatisfaction] = 1 )
+VAR _total = [Total Employees]
+RETURN
+    DIVIDE ( _low, _total )
+
+// -------------------------------------------------- Experience-level logic
+// (matches the Python Task-8 classification)
+// Better as a calculated COLUMN on FactEmployee for slicing:
+/*  calculated column:
+ExperienceLevel =
+SWITCH (
+    TRUE (),
+    FactEmployee[TotalWorkingYears] < 5,  "Junior (<5)",
+    FactEmployee[TotalWorkingYears] <= 9, "Mid (5-9)",
+    "Senior (10+)"
+)
+*/
+
+Attrition Rate Junior % =
+VAR _l = CALCULATE ( [Leavers],        FactEmployee[TotalWorkingYears] < 5 )
+VAR _t = CALCULATE ( [Total Employees], FactEmployee[TotalWorkingYears] < 5 )
+RETURN
+    DIVIDE ( _l, _t )
+
+// ------------------------------------------------------------ Outlier logic
+Income Outlier Count (IQR) =
+// employees above Q3 + 1.5*IQR of MonthlyIncome (fences computed in-model)
+VAR _q1 =
+    PERCENTILEX.INC ( ALL ( FactEmployee ), FactEmployee[MonthlyIncome], 0.25 )
+VAR _q3 =
+    PERCENTILEX.INC ( ALL ( FactEmployee ), FactEmployee[MonthlyIncome], 0.75 )
+VAR _fence = _q3 + 1.5 * ( _q3 - _q1 )
+RETURN
+    CALCULATE (
+        COUNTROWS ( FactEmployee ),
+        FactEmployee[MonthlyIncome] > _fence
+    )
+
+Attrition Rate Income-Outliers % =
+VAR _q1 =
+    PERCENTILEX.INC ( ALL ( FactEmployee ), FactEmployee[MonthlyIncome], 0.25 )
+VAR _q3 =
+    PERCENTILEX.INC ( ALL ( FactEmployee ), FactEmployee[MonthlyIncome], 0.75 )
+VAR _fence = _q3 + 1.5 * ( _q3 - _q1 )
+VAR _l = CALCULATE ( [Leavers],         FactEmployee[MonthlyIncome] > _fence )
+VAR _t = CALCULATE ( [Total Employees], FactEmployee[MonthlyIncome] > _fence )
+RETURN
+    DIVIDE ( _l, _t )                      // = 4.4% -> money retains
+
+// ============================================================================
+// FORMAT STRINGS (set in Model view):
+//   * every "%" measure          -> Percentage, 1 decimal
+//   * OverTime Risk Multiplier   -> #,0.0"x"
+//   * Estimated Replacement Cost -> Currency, 0 decimals
+//   * counts                     -> Whole number, thousands separator
+// ============================================================================

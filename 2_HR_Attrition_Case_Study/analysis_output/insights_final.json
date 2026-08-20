@@ -1,0 +1,399 @@
+{
+ "final": {
+  "top10": [
+   {
+    "rank": 1,
+    "insight": "Overtime is the single strongest attrition driver in the dataset: 30.53% of overtime workers leave versus 10.44% of non-overtime workers (2.9x), and the 416 overtime employees (28.3% of headcount) supply 127 of 237 leavers — 53.6% of ALL attrition. Its chi-square (87.6) edges out even JobRole (86.2).",
+    "numbers": "OT Yes: n=416, leavers=127, rate=30.53%; OT No: n=1054, leavers=110, rate=10.44%; chi2=87.6, p=8.16e-21; 127/237=53.6% of leavers from 28.3% of headcount",
+    "recommendation": "Make OverTime the top-level filter on the attrition dashboard and launch an overtime-governance program (mandatory OT approval, workload rebalancing, comp-off); if the 416 OT workers left at the non-OT rate of 10.44%, expected leavers drop from 127 to ~43 — roughly 84 fewer exits, a 35% cut in total company attrition."
+   },
+   {
+    "rank": 2,
+    "insight": "Risk is multiplicative, not additive: OverTime + JobLevel 1 churns at 52.56% (82 of 156) — roughly double either factor alone (JL1 26.34%, OT 30.53%) — and this 10.6%-of-headcount segment produces 34.6% of all company attrition; the closely overlapping OverTime + tenure <=2 years cell runs 50.96% (53 of 104), meaning every second overtime-loaded new joiner is lost.",
+    "numbers": "OT+JobLevel1: n=156, leavers=82, rate=52.56% (82/237=34.6% of leavers from 156/1470=10.6% of headcount); JobLevel1 alone=26.34%, OT alone=30.53%; OT+Tenure<=2y: n=104, leavers=53, rate=50.96%; company avg=16.12%",
+    "recommendation": "Build a named 156-person watch list (OT flag AND JobLevel=1) with monthly manager review, OT caps, and accelerated level-2 promotion paths, plus a no-overtime rule for the first 12 months of employment with HR sign-off exceptions; bringing the segment to the No-OT rate of 10.44% saves ~66 of its 82 leavers, and even halving the rate saves ~41 exits per year."
+   },
+   {
+    "rank": 3,
+    "insight": "The lowest income band is the concentration point and overtime turns it into near-certain churn: the <$2.5K band holds 226 employees (15.4% of 1470) yet supplies 77 of 237 leavers (32.5%) at 34.07%, and the OverTime + Income<$2.5K cell loses 48 of 70 people (68.57%) — the worst segment in the entire dataset, where an employee is more likely to leave than to stay.",
+    "numbers": "<2.5K band: n=226 (15.4%), leavers=77 (32.5% of 237), rate=34.07%; OT+Income<2.5K: n=70, leavers=48, rate=68.57%; next band 2.5-5K rate=16.44%; company rate=16.12%",
+    "recommendation": "Introduce a pay floor lifting the <$2.5K band into the $2.5-5K band (which runs at 16.44%) and cap or premium-pay overtime for that band, starting with the 70 sub-$2.5K overtime workers: at the 16.44% band rate their expected leavers fall from 48 to ~12 (~36 saved from adjusting only 70 salaries), and band-wide the move retains roughly 30-40 of the 77 annual leavers — likely the highest-ROI action in the analysis."
+   },
+   {
+    "rank": 4,
+    "insight": "Zero equity marks nearly two-thirds of all attrition: StockOptionLevel 0 covers 631 of 1470 people (42.9%) but 154 of 237 leavers (65%), churning at 24.41% versus 9.4% at level 1 — and the marginal value is entirely in the 0-to-1 step (level 3 rebounds to 17.65%). The gap compounds with life stage: all 470 Single employees sit at level 0 and churn at 25.53%, supplying 120 of 237 leavers (50.6%), rising to 49.62% (65 of 131) when overtime is added.",
+    "numbers": "Level 0: n=631 (42.9%), leavers=154 (65%), rate=24.41%; level 1: n=596, rate=9.4%; level 2: n=158, rate=7.59%; level 3: n=85, rate=17.65%; chi2=60.6, p=4.38e-13; Single+zero-stock: n=470, leavers=120, rate=25.53% (50.6% of all leavers); OT+Single: 65/131, 49.62%",
+    "recommendation": "Roll out a broad-based level-1 equity grant (or equivalent retention bonus vesting over 2-3 years) to the 631 zero-stock employees, prioritizing the 470-person zero-stock-and-single overlap, and audit award eligibility so grants follow role and performance rather than correlating with life stage; closing even a third of the 24.41%-vs-9.4% gap saves on the order of 25-30 leavers per year."
+   },
+   {
+    "rank": 5,
+    "insight": "Attrition is front-loaded to an extreme degree: first-year employees churn at 34.88% (75 of 215), so 14.6% of headcount generates 31.6% of all attrition — the steepest cliff in the tenure curve, echoed by ages 18-25 at 35.77% (44 of 123). One in three new hires never reaches year two, and recruiting and onboarding spend is written off before payback.",
+    "numbers": "Tenure 0-1: n=215 (14.6% of 1470), leavers=75 (31.6% of 237), rate=34.88%; next band 2-3y rate=18.43%; Age 18-25: n=123, leavers=44, rate=35.77%; mean age leavers 33.61 vs stayers 37.56 (p=1.38e-08)",
+    "recommendation": "Deploy a structured 30-60-90-day onboarding program with mandatory buddy assignment and quarterly year-one stay interviews, protected by the first-year no-overtime window; bringing the 0-1y rate down to the 2-3y band level of 18.43% saves ~35 exits per year and cuts company attrition from 16.12% to roughly 13.7%."
+   },
+   {
+    "rank": 6,
+    "insight": "Three cheap frontline roles produce 60% of all leavers, and in each the leavers were the underpaid ones: Laboratory Technician (62 leavers, 23.94%, leaver median $2,603 vs stayer $3,068, 15.2% gap), Research Scientist (47 leavers, 16.1%, $2,461 vs $2,936, 16.2% gap) and Sales Representative (33 leavers, 39.76% — the worst single-role rate — $2,325 vs $2,643, 12.0% gap) together account for 142 of 237 leavers; the Sales Rep + OverTime cell loses 16 of 24 people (66.67%).",
+    "numbers": "Lab Tech: n=259, leavers=62, rate=23.94%, gap 15.2% (2603 vs 3068); Research Scientist: n=292, leavers=47, rate=16.1%, gap 16.2% (2461 vs 2936); Sales Rep: n=83, leavers=33, rate=39.76%, gap 12.0% (2325 vs 2643); OT+SalesRep: 16/24, 66.67%; combined 142/237=60%",
+    "recommendation": "Commission an external market benchmark for exactly these three roles, bring below-median incumbents to role median (targeting the 12-16% within-role gaps), and ban routine overtime for Sales Representatives; a targeted 10-15% adjustment in three roles plausibly addresses a third or more of the 142 annual leavers at the lowest salary base in the company."
+   },
+   {
+    "rank": 7,
+    "insight": "The reward system provides zero retention differentiation: top performers (rating 4) leave at 16.37% (37 of 226), statistically identical to rating-3 employees at 16.08%, and salary hikes are flat across outcomes (leavers 15.1% vs stayers 15.23% mean, median 14% for both, p=0.614) — the company loses 37 documented top-rated employees a year while paying flight risks and stars the same raise.",
+    "numbers": "Rating 4: n=226, leavers=37, rate=16.37%; rating 3: n=1244, leavers=200, rate=16.08%; hike mean leavers=15.1 vs stayers=15.23, medians both 14.0, p=0.614, corr=-0.013",
+    "recommendation": "Restructure the merit cycle to a differentiated matrix (8-10% baseline, 18-20% for rating-4 employees in high-attrition roles) funded by trimming raises in near-zero-attrition top income bands, and grant level-1 stock to rating-4 staff currently at level 0 (24.41% vs 9.4%); this directly targets and could preserve 15-20 of the 37 annual top-talent losses at flat total budget."
+   },
+   {
+    "rank": 8,
+    "insight": "Satisfaction metrics are threshold effects, not gradients — the signal lives entirely at the bottom score: EnvironmentSatisfaction 1 churns at 25.35% (72 of 284, contributing 30% of all attrition) while levels 2-4 cluster at 13.45-14.98%; JobInvolvement 1 shows the steepest spread at 33.73% (28 of 83) vs 9.03% at level 4; WorkLifeBalance 1 runs 31.25% (25 of 80) while the 'best' score 4 actually churns higher than 3 (17.65% vs 14.22%). Broad wellbeing programs nudging averages upward will not move attrition.",
+    "numbers": "EnvSat 1: 72/284, 25.35% vs levels 2/3/4: 14.98%/13.69%/13.45% (chi2=22.5, p=5.12e-05); JobInvolvement 1: 28/83, 33.73% vs level 4: 13/144, 9.03% (corr -0.13); WLB 1: 25/80, 31.25%; WLB 3: 14.22%; WLB 4: 27/153, 17.65%",
+    "recommendation": "Replace blanket engagement spend with targeted triage of the bottom-score populations only — manager-led root-cause interviews and 90-day fix plans for the 284 EnvSat=1 (~29 savable exits), role-redesign conversations within 30 days for the 83 JobInvolvement=1 (~12 savable), and workload correction for the 80 WLB=1 (~14 savable)."
+   },
+   {
+    "rank": 9,
+    "insight": "Promotion stagnation is a retention red herring while manager continuity is the real tenure-side signal: YearsSinceLastPromotion is statistically insignificant (leavers 1.95 vs stayers 2.23, p=0.199, corr -0.033) and long-stagnant veterans are the MOST loyal cohort (10y+ tenure with 7y+ no promotion: 13.79%; >7.5y promotion outliers: 12.15% — both below the 16.12% average); meanwhile leavers average 2.85 years with their current manager vs 4.37 for stayers (corr -0.156) and 2.9 vs 4.48 years in role (corr -0.161), roughly 5x stronger correlates.",
+    "numbers": "YearsSinceLastPromotion: 1.95 vs 2.23, p=0.199, corr=-0.033; 10y+ tenure/7y+ no promo: n=116, leavers=16, rate=13.79%; outliers >7.5y: n=107, rate=12.15%; YearsWithCurrManager: 2.85 vs 4.37, p=1.19e-10, corr=-0.156; YearsInCurrentRole: 2.9 vs 4.48, p=3.19e-11, corr=-0.161",
+    "recommendation": "Reallocate promotion-fairness retention budget away from long-tenured stagnant employees toward the 34.88% first-year cohort, add 'manager changes in last 24 months' as a tracked dashboard risk flag, and require HR review before reassigning employees in their first two years under a manager — same spend, redirected to where each point of improvement saves ~2 employees."
+   },
+   {
+    "rank": 10,
+    "insight": "Single-KPI, rate-ranked reporting systematically misallocates leadership attention: the 16.12% headline conceals an 8.3x internal spread (68.57% in the worst cell vs 8.24% for No-OT JobLevel>=3); rate-ranking points executives at Sales (20.63%) while R&D supplies 133 of 237 leavers (56.1% of all replacement cost) at a below-average 13.84%; and of four pay fields only MonthlyIncome discriminates (corr -0.16, p=4.43e-13) — HourlyRate (p=0.791) and MonthlyRate (p=0.565) are pure noise, as is gender (p=0.291).",
+    "numbers": "Spread: 68.57% (OT+<2.5K, 48/70) vs 8.24% (No OT+JobLevel>=3, 23/279) = 8.3x; Sales: 92/446, 20.63%; R&D: 133/961, 13.84%, 56.1% of leavers; MonthlyIncome: 4787.09 vs 6832.74, p=4.43e-13, corr=-0.16; HourlyRate p=0.791; MonthlyRate p=0.565; Gender: 17.01% vs 14.8%, chi2=1.1, p=0.291",
+    "recommendation": "Redesign the BI deliverable around risk tiers instead of one KPI: a tiered heat map (OT status x JobLevel x income band) benchmarked against the 8.24% No-OT senior segment, dual rate-plus-absolute-count views per department, alerting when any segment exceeds 2x the company rate, and dropping HourlyRate, MonthlyRate, and gender as retention KPIs — converting the dashboard from descriptive to operational."
+   }
+  ],
+  "recommendation_plan": {
+   "quick_wins": [
+    "Impose mandatory overtime approval and caps for JobLevel 1 staff and build the named 156-person OT+JobLevel-1 watch list with monthly manager review — normalizing this 52.56% segment even halfway saves ~41 exits per year.",
+    "Institute a no-overtime policy for the first 12 months of employment (HR sign-off for exceptions) — bringing the OT + tenure<=2y rate of 50.96% (53 of 104) to the no-OT rate of 10.44% saves ~42 exits.",
+    "Ban routine overtime for Sales Representatives immediately — cutting the 66.67% OT sub-segment (16 of 24) to the role base rate of 39.76% saves ~6 exits and protects the 83-person feeder pipeline for Sales Executive.",
+    "Launch bottom-score triage lists for the 284 EnvSat=1, 83 JobInvolvement=1, and 80 WLB=1 employees with manager 1:1s and 90-day fix plans — worth roughly 29, 12, and 14 savable exits respectively.",
+    "Adopt a 'no employee at zero trainings' rule with an automated HRIS report by Q3 — moving the 54-person zero-training cohort from 27.78% to the one-training rate of 12.68% saves ~8 exits for ~54 training seats.",
+    "Rebuild the attrition dashboard now: OverTime as the top-level filter, dual rate-plus-count views, alerting at 2x the 16.12% company rate, and retire HourlyRate (p=0.791), MonthlyRate (p=0.565), and gender (p=0.291) as retention KPIs."
+   ],
+   "medium_term": [
+    "Introduce a pay floor lifting the 226-person <$2.5K band into the $2.5-5K band (16.44% attrition), prioritizing the 70 OT+<2.5K employees — their 48 expected leavers fall to ~12 (~36 saved), with 30-40 of the band's 77 annual leavers retainable overall.",
+    "Commission an external market benchmark and within-role compression fixes for Laboratory Technician, Research Scientist, and Sales Representative (leaver pay gaps 15.2%, 16.2%, 12.0%) — plausibly addressing a third or more of their 142 combined annual leavers.",
+    "Extend a level-1 equity grant or 2-3-year vesting retention bonus to the 631 zero-stock employees, prioritizing the 470 zero-stock singles at 25.53% — closing a third of the 24.41%-vs-9.4% gap saves ~25-30 exits per year.",
+    "Restructure the merit cycle into a differentiated matrix (8-10% baseline, 18-20% for rating-4 employees in high-attrition roles), funded by trimming top-band raises — directly targeting the 37 annual rating-4 losses that flat 14% median hikes currently fail to prevent.",
+    "Deploy the structured 30-60-90-day onboarding program with buddy assignment and quarterly year-one stay interviews — cutting first-year attrition from 34.88% to the 2-3y band's 18.43% saves ~35 exits and lowers company attrition to ~13.7%.",
+    "Cap consecutive travel assignments, rotate frequent-travel duty across the 1,043-person rare-travel pool, and go virtual-first for the 96 single frequent travelers — moving the 277 frequent travelers from 24.91% to the rare-travel rate of 14.96% saves ~28 exits.",
+    "Offer hybrid days or a transport allowance specifically to the 444 employees commuting 11+ km (blended ~21% rate, 93 leavers) — reaching the 6-10 km rate of 14.47% saves up to ~29 exits, ~10 even at one-third effect."
+   ],
+   "strategic": [
+    "Publish a defined 18-24-month JobLevel 1-to-2 progression framework with skill milestones and mid-cycle promotion windows — closing a quarter of the 26.34%-vs-9.74% level gap retains ~22 additional employees per year.",
+    "Institutionalize manager continuity: track 'manager changes in last 24 months' as a standing risk flag and require HR review before reassigning employees in their first two years under a manager (leavers average 2.85 vs 4.37 years with current manager, p=1.19e-10).",
+    "Permanently reallocate retention spend away from proven-safe populations — the 114 earners above the $16,581 fence (4.39% attrition) and long-stagnant veterans (13.79%, promotion-lag p=0.199) — into the early-tenure and sub-$2.5K segments where rates run 34-69%.",
+    "Build an early-career retention track (12/24-month career-path conversations, mentor pairing, accelerated first-promotion review) for the 729 employees aged 35 and under who supply 67.5% of all attrition — a 3-point reduction across the group saves ~22 exits per year.",
+    "Launch a succession and knowledge-transfer program triggered at 20 years of tenure or age 55 — full coverage of the 66 employees at 21+ years (12.12% attrition) and 47 aged 56-60 (17.02%) is low-cost and converts unplanned senior exits into planned transitions.",
+    "Make tiered risk-segment reporting (OT status x JobLevel x income band, benchmarked to the 8.24% No-OT senior rate) the permanent BI standard so the 8.3x internal risk spread stays visible to leadership and resource allocation follows the fire, not the average."
+   ]
+  },
+  "narrative": "The headline number — 237 leavers out of 1,470 employees, a 16.12% attrition rate — looks like a moderate, company-wide problem. It is neither. Beneath the average sits an 8.3x spread in risk: the safest population (no overtime, JobLevel 3+) loses just 8.24% of its people, while the worst cell — overtime workers earning under $2,500 a month — loses 68.57%, meaning those employees are literally more likely to leave than to stay. The losses are ferociously concentrated: 53.6% of all leavers come from the 28.3% of staff working overtime; 60% come from just three low-paid frontline roles (Laboratory Technician, Research Scientist, Sales Representative — 142 of 237 leavers); 65% hold zero stock options; 31.6% are in their first year; and 67.5% are aged 35 or under. This is not a workforce problem — it is a small number of identifiable, junior, underpaid, overworked pockets bleeding out at coin-flip rates while recruiting and onboarding investment is written off before it pays back.\n\nThe drivers are clear and they compound multiplicatively. Overtime is the single strongest factor in the dataset (30.53% vs 10.44%, chi-square 87.6), and when layered on low pay or junior level it roughly doubles: OT + income under $2.5K hits 68.57%, OT + JobLevel 1 hits 52.56% (82 leavers — over a third of company attrition from 156 people), and OT in the first two years hits 50.96%. Pay itself follows a clean gradient — 34.07% attrition below $2.5K falling to 3.76% at $15-20K — and within the frontline roles the leavers were specifically the underpaid ones (12-28% below stayer medians), while senior leavers actually out-earned stayers, proving two different problems need two different budgets. The 0-to-1 stock option step alone coincides with a drop from 24.41% to 9.4%. Just as important is what is NOT driving attrition: promotion stagnation (p=0.199 — long-stagnant veterans are the most loyal cohort at 13.79%), gender (p=0.291), and salary hikes, which are statistically identical for leavers and stayers (p=0.614) — which is why the company loses 37 top-rated performers a year at the same 16.37% rate as everyone else. The real tenure-side signal is manager continuity: leavers average 2.85 years with their current manager versus 4.37 for stayers.\n\nThe plan sequences spend against this concentration. In the first three months, the quick wins are governance, not money: overtime caps for JobLevel 1 and first-year staff, a ban on routine Sales Rep overtime, triage of the bottom-satisfaction scorers, and a rebuilt dashboard with OverTime as the top-level filter and rate-plus-count views so leadership stops steering by a misleading average. In months three to nine, targeted compensation does the heavy lifting: a pay floor for the <$2.5K band (fixing just 70 OT salaries saves ~36 exits), market benchmarks for the three bleeding roles, level-1 equity for the 631 zero-stock employees, a differentiated merit matrix for top performers, and structured first-year onboarding (~35 exits saved). Beyond nine months, structural fixes lock in the gains: a published L1-to-L2 progression framework, manager-continuity rules, reallocation of retention spend away from the already-safe 114 top earners, and tiered risk reporting as the permanent BI standard. These savings overlap and are not simply additive, but overtime normalization alone is worth ~84 exits (a 35% cut), and the combined program credibly moves company attrition from 16.12% toward the 11% range within 18 months — with nearly all spend focused on segments of 70 to 631 people rather than across-the-board programs."
+ },
+ "byLens": [
+  {
+   "lens": "compensation",
+   "kept": [
+    {
+     "finding": "The lowest income band (<$2.5K/month) holds only 226 employees (15.4% of 1470) yet supplies 77 of the 237 leavers (32.5%) at a 34.07% attrition rate, and when overtime is layered on top, the OverTime + Income<2.5K segment loses 48 of 70 people (68.57%).",
+     "numbers": "n=226, leavers=77, rate=34.07%, total leavers=237, OT+<2.5K: n=70, leavers=48, rate=68.57%, company rate=16.12%",
+     "so_what": "One-third of all attrition is concentrated in a small, cheap-to-fix population; a sub-$2.5K employee working overtime is more likely to leave than to stay, meaning recruiting and training spend in these roles is being burned on a revolving door.",
+     "recommendation": "Introduce a pay floor that lifts the <$2.5K band into the $2.5-5K band (which runs at 16.44% attrition) and cap overtime for that band; halving the gap to the next band's rate would retain roughly 30-40 of those 77 annual leavers for a raise cost on only 226 low-salary headcount.",
+     "priority": "critical"
+    },
+    {
+     "finding": "Employees with StockOptionLevel 0 make up 631 of 1470 people (42.9%) but account for 154 of 237 leavers (65%), churning at 24.41% versus 9.4% at level 1 and 7.59% at level 2 (chi-square 60.6, p=4.38e-13).",
+     "numbers": "level 0: n=631, leavers=154, rate=24.41%; level 1: n=596, rate=9.4%; level 2: n=158, rate=7.59%; level 3: n=85, rate=17.65%; chi2=60.6, p=4.38e-13",
+     "so_what": "Nearly two-thirds of all attrition sits in the zero-equity population; even a minimal grant coincides with a ~15-point drop in attrition, while the level-3 rebound to 17.65% shows piling on more equity yields no extra protection — the marginal value is entirely in the 0-to-1 step.",
+     "recommendation": "Roll out a broad-based level-1 equity grant (or equivalent retention bonus vesting over 2-3 years) to the 631 zero-stock employees, prioritizing the 470-person zero-stock-and-single overlap that churns at 25.53%; closing even a third of the 24.41%-vs-9.4% gap would save on the order of 30 leavers per year.",
+     "priority": "critical"
+    },
+    {
+     "finding": "The leaver-vs-stayer pay gap flips sign by role seniority: leavers were underpaid in frontline roles — Human Resources 27.7% below stayers ($2,652.5 vs $3,668.5 median), Research Scientist 16.2% ($2,461 vs $2,936), Laboratory Technician 15.2% ($2,603 vs $3,068), Sales Representative 12.0% ($2,325 vs $2,643) — but overpaid in senior roles, with Healthcare Representative leavers earning 28.9% MORE than stayers ($8,722 vs $6,768) and Research Director leavers 18.1% more ($19,395.5 vs $16,417.5).",
+     "numbers": "HR gap 27.7% (2652.5 vs 3668.5), Research Scientist 16.2% (2461 vs 2936), Lab Tech 15.2% (2603 vs 3068), Sales Rep 12.0% (2325 vs 2643), Healthcare Rep -28.9% (8722 vs 6768), Research Director -18.1% (19395.5 vs 16417.5), Manager -7.9% (18824 vs 17444)",
+     "so_what": "A single across-the-board raise would misfire: frontline attrition is a pay-equity problem where the cheapest-paid within each role walk out, while senior departures happen despite premium pay and must be driven by non-compensation factors — two different problems requiring two different budgets.",
+     "recommendation": "Run within-role compression analysis for the four underpaid frontline roles and bring bottom-quartile incumbents to role median (targets the exact 12-28% gaps identified); for senior roles, redirect spend from counter-offers to career-path and workload interventions, since their leavers already out-earned stayers.",
+     "priority": "high"
+    },
+    {
+     "finding": "The annual salary hike is statistically identical for leavers and stayers — 15.1% vs 15.23% mean (median 14% for both, p=0.614, point-biserial correlation -0.013) — and top performers (rating 4) leave at 16.37%, indistinguishable from rating-3 performers at 16.08%.",
+     "numbers": "hike mean leavers=15.1, stayers=15.23, medians both 14.0, p=0.614, corr=-0.013; rating 4: n=226, leavers=37, rate=16.37%; rating 3: n=1244, leavers=200, rate=16.08%",
+     "so_what": "The merit-increase budget is being spread peanut-butter style with zero retention or performance differentiation — the company loses 37 of its 226 top-rated employees a year while paying flight risks and stars the same 14% median raise, so the entire hike budget buys no retention.",
+     "recommendation": "Restructure the merit cycle to a differentiated matrix (e.g., 8-10% baseline, 18-20% for rating-4 employees in high-attrition roles), funded by trimming raises for the near-zero-attrition top income bands; even holding total budget flat, shifting differentiation toward the 226 high performers directly targets those 37 annual top-talent losses.",
+     "priority": "high"
+    },
+    {
+     "finding": "Attrition falls almost monotonically with pay and then saturates: 34.07% below $2.5K, 16.44% at $2.5-5K, 9.68% at $5-7.5K, and just 3.76% at $15-20K (5 leavers out of 133), while the 114 MonthlyIncome outliers above the $16,581 upper fence churn at only 4.39%.",
+     "numbers": "<2.5K rate=34.07%, 2.5-5K=16.44%, 5-7.5K=9.68%, 15-20K rate=3.76% (5/133), outliers: n=114, upper_fence=16581, outlier rate=4.39%, company rate=16.12%",
+     "so_what": "Retention is effectively solved above roughly $16.5K/month — those 114 high earners leave at a quarter of the company rate — so every incremental retention dollar spent at the top is nearly wasted, while the same dollar at the bottom bands attacks a 9x higher attrition rate.",
+     "recommendation": "In the next compensation review, freeze discretionary retention spend for the 114 above-fence earners and redeploy it to the 226-person <$2.5K band; the gradient implies each band-step up is worth roughly a halving of attrition risk at the low end.",
+     "priority": "medium"
+    },
+    {
+     "finding": "Three sub-$3.3K-average roles — Laboratory Technician (62 leavers, avg income $3,237.17), Research Scientist (47 leavers, $3,239.97) and Sales Representative (33 leavers, $2,626.00) — together produce 142 of the 237 leavers (60%), and all three show leavers paid below stayers (gaps of 15.2%, 16.2% and 12.0%), with Sales Rep running the worst single-role rate at 39.76% on just 83 heads.",
+     "numbers": "Lab Tech: 62 leavers, n=259, avg 3237.17, gap 15.2%; Research Scientist: 47 leavers, n=292, avg 3239.97, gap 16.2%; Sales Rep: 33 leavers, n=83, rate 39.76%, avg 2626.00, gap 12.0%; combined 142/237=60%",
+     "so_what": "The attrition problem is not company-wide — it is three cheap frontline roles bleeding out, and because their salaries are the lowest in the company, the cost of fixing pay there is small relative to the replacement cost of 142 hires per year.",
+     "recommendation": "Commission an external market benchmark for exactly these three roles and correct to market plus fix the internal leaver-vs-stayer gap; given the within-role gaps of 12-16%, a targeted 10-15% adjustment for below-median incumbents in three roles is the highest-ROI compensation move available and plausibly addresses a third or more of the 142 leavers.",
+     "priority": "critical"
+    },
+    {
+     "finding": "Of the four pay fields in the dataset, only MonthlyIncome discriminates leavers from stayers (mean $4,787.09 vs $6,832.74, p=4.43e-13, correlation -0.16); HourlyRate (p=0.791, corr -0.007) and MonthlyRate (p=0.565, corr 0.015) are pure noise, and DailyRate is marginal (p=0.03, corr -0.057).",
+     "numbers": "MonthlyIncome: 4787.09 vs 6832.74, p=4.43e-13, corr=-0.16; HourlyRate: 65.57 vs 65.95, p=0.791, corr=-0.007; MonthlyRate: 14559.31 vs 14265.78, p=0.565, corr=0.015; DailyRate: 750.36 vs 812.50, p=0.03, corr=-0.057",
+     "so_what": "Dashboards or attrition models built on HourlyRate/MonthlyRate will look busy but predict nothing — MonthlyRate even trends the wrong way (leavers nominally higher) — misleading HR stakeholders about where pay risk sits.",
+     "recommendation": "In the BI model and any attrition dashboard, drop HourlyRate and MonthlyRate as retention KPIs and standardize all compensation visuals on MonthlyIncome bands, where the leaver-stayer median gap is $3,202 vs $5,204 (leavers 38% lower).",
+     "priority": "low"
+    }
+   ],
+   "dropped": 0,
+   "corrections": []
+  },
+  {
+   "lens": "workload",
+   "kept": [
+    {
+     "finding": "OverTime is the single strongest categorical driver of attrition in the dataset: 30.53% of overtime workers leave vs 10.44% of non-overtime workers (2.9x), and its chi-square of 87.6 (p=8.16e-21) edges out even JobRole (86.2) — meaning just 416 overtime employees (28.3% of the 1470 workforce) account for 127 of 237 leavers, i.e. 53.6% of ALL attrition.",
+     "numbers": "OT Yes: n=416, leavers=127, rate=30.53%; OT No: n=1054, leavers=110, rate=10.44%; chi2=87.6, p=8.16e-21; JobRole chi2=86.2; total leavers=237",
+     "so_what": "A minority of the workforce generates the majority of attrition cost. Any retention program that does not segment by overtime status first is treating the wrong population.",
+     "recommendation": "Make OverTime the top-level filter on the attrition dashboard and launch an overtime-governance program (workload rebalancing, mandatory OT approval, comp-off). Scenario math from the file: if the 416 OT workers left at the non-OT rate of 10.44%, expected leavers drop from 127 to ~43 — roughly 84 fewer exits, a 35% cut in total company attrition.",
+     "priority": "critical"
+    },
+    {
+     "finding": "OverTime + JobLevel 1 is a 156-person watch-list that produces over a third of all company attrition: this segment churns at 52.56% (82 of 156 leavers), while JobLevel 1 alone runs 26.34% and OverTime alone 30.53% — the combination roughly doubles either single factor and is 3.3x the 16.12% company average.",
+     "numbers": "OT+JobLevel1: n=156, leavers=82, rate=52.56%; JobLevel1 alone: n=543, rate=26.34%; OT alone: 30.53%; company avg: 16.12%; 82/237=34.6% of all leavers from 156/1470=10.6% of headcount",
+     "so_what": "The risk is multiplicative, not additive: junior staff absorbing overtime is the company's core attrition engine. Backfilling 82 entry-level exits per cycle means permanent recruiting-and-training churn in exactly the roles that staff frontline operations.",
+     "recommendation": "Build a named 156-person retention list in the BI tool (OT flag AND JobLevel=1) with monthly manager review, OT caps, and accelerated level-2 promotion paths. Bringing this segment to the No-OT rate of 10.44% would save ~66 of its 82 leavers; even halving the rate saves ~41 exits per year.",
+     "priority": "critical"
+    },
+    {
+     "finding": "Within overtime workers, PAY multiplies risk far more than attitude: OverTime + income under 2.5K churns at 68.57% (48 of 70) — the worst segment in the file — while OverTime + lowest job satisfaction (JobSat=1) churns at 'only' 35.71% (30 of 84). Low pay adds +38 points on top of the 30.53% OT baseline; low satisfaction adds just +5.2 points.",
+     "numbers": "OT+Income<2.5K: n=70, leavers=48, rate=68.57%; OT+JobSat=1: n=84, leavers=30, rate=35.71%; OT baseline=30.53%; Income<2.5K alone=34.07%; 2.5-5K band rate=16.44%",
+     "so_what": "Engagement surveys will systematically miss this problem — it is a compensation-structure issue, not a morale issue. Two out of three low-paid overtime workers walk out, effectively meaning the company pays to train their competitors' staff.",
+     "recommendation": "Prioritize a comp intervention for the 70 sub-2.5K overtime workers (overtime premium or raising base into the 2.5-5K band). At that band's 16.44% rate, expected leavers fall from 48 to ~12 — 36 saved exits from adjusting only 70 salaries, likely the highest ROI action in the entire analysis.",
+     "priority": "critical"
+    },
+    {
+     "finding": "Sales Representative + OverTime is near-certain churn: 66.67% of this segment leaves (16 of 24), on top of a Sales Rep base rate that is already the worst of any role at 39.76% (33 of 83) — and Sales Rep leavers earn a median 2325 vs 2643 for stayers, a 12.0% pay gap.",
+     "numbers": "OT+SalesRep: n=24, leavers=16, rate=66.67%; SalesRep overall: n=83, leavers=33, rate=39.76%; median income leavers=2325 vs stayers=2643, gap=12.0%; role AvgMonthlyIncome=2626",
+     "so_what": "Two of every three overtime Sales Reps resign — the role combines lowest pay (avg 2626/month), high churn, and overtime load. This is a pipeline killer for the Sales department, which already runs the highest departmental attrition at 20.63%.",
+     "recommendation": "Ban routine overtime for Sales Representatives and fix the underlying territory/staffing ratio; pair with a pay-floor review given the 12% leaver pay gap. Even matching the role's own 39.76% base rate would save ~6 of the 16 segment leavers, and fixing the role overall protects an 83-person feeder pipeline for Sales Executive.",
+     "priority": "high"
+    },
+    {
+     "finding": "Business travel shows a clean dose-response curve: 8.0% attrition for non-travelers (12/150), 14.96% for rare travelers (156/1043), 24.91% for frequent travelers (69/277) — a 3.1x span — and layering Single marital status on frequent travel pushes it to 38.54% (37/96).",
+     "numbers": "Non-Travel: n=150, rate=8.0%; Travel_Rarely: n=1043, rate=14.96%; Travel_Frequently: n=277, leavers=69, rate=24.91%; chi2=24.2, p=5.61e-06; FreqTravel+Single: n=96, leavers=37, rate=38.54%",
+     "so_what": "Frequent travelers are 18.8% of the workforce but supply 29.1% of all leavers (69/237). The gradient proves travel burden itself — not who gets assigned travel — is the mechanism, so it is directly controllable through policy.",
+     "recommendation": "Cap consecutive travel assignments and rotate frequent-travel duty across the 1043-person rare-travel pool; go virtual-first for the 96 Single frequent travelers. Moving the 277 frequent travelers down to the rare-travel rate of 14.96% saves ~28 leavers per year.",
+     "priority": "high"
+    },
+    {
+     "finding": "Overtime in the first two years of tenure doubles new-hire loss: OverTime + Tenure<=2y churns at 50.96% (53 of 104), versus 34.88% for first-year employees overall (75 of 215) and 18.43% for the 2-3 year band — meaning the company loses every second new joiner it puts on overtime.",
+     "numbers": "OT+Tenure<=2y: n=104, leavers=53, rate=50.96%; first-year employees: n=215, leavers=75, rate=34.88%; tenure 2-3y band: rate=18.43%; mean YearsAtCompany leavers=5.13 vs stayers=7.37",
+     "so_what": "Onboarding investment is written off before payback: half of overtime-loaded new hires never reach year three. This silently inflates time-to-productivity metrics and recruiting spend.",
+     "recommendation": "Institute a no-overtime (or strict OT-cap) policy for the first 12 months of employment, with exceptions requiring HR sign-off. Bringing the 104-person segment to the general No-OT rate of 10.44% would save ~42 of its 53 leavers.",
+     "priority": "high"
+    },
+    {
+     "finding": "Work-life balance is a threshold effect, not a ladder: only the extreme-low group is dangerous — WLB=1 churns at 31.25% (25 of 80), 2.2x the WLB=3 rate of 14.22% — while the 'best' score WLB=4 actually churns HIGHER than WLB=3 (17.65% vs 14.22%), and the overall correlation is a weak -0.064, the lowest of all satisfaction metrics.",
+     "numbers": "WLB=1: n=80, leavers=25, rate=31.25%; WLB=2: 16.86%; WLB=3: n=893, rate=14.22%; WLB=4: n=153, leavers=27, rate=17.65%; pointbiserial WorkLifeBalance=-0.064; chi2=16.3, p=0.000973",
+     "so_what": "Broad company-wide wellbeing programs aimed at nudging everyone toward a '4' will not move attrition — the signal lives entirely in 80 people at the bottom. The non-monotonic top end suggests high-WLB scorers leave for other reasons entirely.",
+     "recommendation": "Replace blanket wellbeing spend with targeted triage: flag the 80 WLB=1 employees for immediate manager 1:1s and workload correction (they contain ~25 expected leavers). Cutting their rate to the WLB=3 level of 14.22% saves ~14 exits at minimal cost.",
+     "priority": "medium"
+    },
+    {
+     "finding": "The full risk spread inside one company is 8.3x: the worst compound segment (OverTime + Income<2.5K, 68.57%) versus the safest (No OverTime + JobLevel>=3, 8.24%, 23 of 279) — the 16.12% headline average conceals populations with radically different realities.",
+     "numbers": "OT+Income<2.5K: rate=68.57% (48/70); No OT+JobLevel>=3: n=279, leavers=23, rate=8.24%; company average=16.12%; ratio 68.57/8.24=8.3x",
+     "so_what": "Reporting a single company-wide attrition KPI is actively misleading for decision-making: leadership sees a moderate 16% while specific 70-156 person pockets are hemorrhaging at 50-69%. Resource allocation follows the average and misses the fire.",
+     "recommendation": "Redesign the BI deliverable around risk tiers rather than one KPI: a tiered heat map (OT status x JobLevel x income band) with the No-OT senior segment (8.24%) as the internal benchmark, plus alerting when any segment exceeds 2x the company rate. This converts the dashboard from descriptive to operational.",
+     "priority": "medium"
+    }
+   ],
+   "dropped": 0,
+   "corrections": []
+  },
+  {
+   "lens": "career",
+   "kept": [
+    {
+     "finding": "First-year employees churn at 34.88% (75 of 215), meaning 14.6% of headcount (215/1470) generates 31.6% of all attrition (75 of 237 leavers) - the single steepest cliff in the tenure curve.",
+     "numbers": "TenureBand 0-1: n=215, leavers=75, rate=34.88%; company: n=1470, leavers=237, rate=16.12%; next band 2-3y rate=18.43%",
+     "so_what": "Recruiting and onboarding spend is being written off before it pays back: one in three new hires never reaches year two, and this cohort alone accounts for nearly a third of every exit the company processes.",
+     "recommendation": "Deploy a structured 30-60-90-day onboarding program with mandatory buddy assignment and quarterly stay-interviews in year one. Bringing the 0-1y rate down to the 2-3y band level (18.43%) would save ~35 exits per year and cut company attrition from 16.12% to roughly 13.7%.",
+     "priority": "critical"
+    },
+    {
+     "finding": "Job Level 1 and Job Level 2 have almost identical headcounts (543 vs 534), yet L1 loses 143 people at 26.34% while L2 loses 52 at 9.74% - so L1 alone supplies 60.3% of all company attrition (143 of 237).",
+     "numbers": "JobLevel 1: n=543, leavers=143, rate=26.34%; JobLevel 2: n=534, leavers=52, rate=9.74%; 143/237=60.3% of total leavers",
+     "so_what": "Attrition is structurally concentrated at the entry level: the act of reaching Level 2 coincides with a 16.6-point drop in exit risk, so slow L1-to-L2 progression is effectively a churn generator for the majority of the workforce pipeline.",
+     "recommendation": "Publish a defined 18-24 month L1-to-L2 progression framework with skill milestones and mid-cycle promotion windows. Moving even a quarter of the L1 rate gap toward L2 behavior (~4 points off 26.34%) would retain ~22 additional employees per year.",
+     "priority": "critical"
+    },
+    {
+     "finding": "Overtime turns early tenure into a near coin-flip: employees with OverTime and tenure of 2 years or less leave at 50.96% (53 of 104), versus 30.53% for all overtime workers and 10.44% for non-overtime staff; the OverTime + JobLevel 1 cell is worse still at 52.56% (82 of 156), which is 34.6% of all company attrition from one segment.",
+     "numbers": "OverTime+Tenure<=2y: n=104, leavers=53, rate=50.96%; OverTime overall: n=416, rate=30.53%; No OT: n=1054, rate=10.44%; OverTime+JobLevel1: n=156, leavers=82, rate=52.56%; 82/237=34.6%",
+     "so_what": "The company is burning out exactly the people it just paid to hire and train: half of new, junior, overtime-working staff walk out, compounding the first-year cliff and making one small segment responsible for over a third of total attrition.",
+     "recommendation": "Impose an overtime cap or manager sign-off rule for employees in their first two years and at Job Level 1, with a monthly BI alert listing junior staff exceeding overtime thresholds. Pulling the OT+L1 rate (52.56%) down to the overall L1 rate (26.34%) would save ~41 exits per year.",
+     "priority": "critical"
+    },
+    {
+     "finding": "Promotion stagnation is a red herring for attrition: YearsSinceLastPromotion barely differs between leavers (mean 1.95) and stayers (mean 2.23, p=0.199, not significant, correlation -0.033), and the 116 veterans with 10+ years tenure and 7+ years without promotion churn at only 13.79% - below the 16.12% company average; the 107 promotion outliers (>7.5 years) churn at just 12.15%.",
+     "numbers": "YearsSinceLastPromotion: mean_leavers=1.95, mean_stayers=2.23, p=0.199, corr=-0.033; segment '10y+ tenure, 7y+ no promotion': n=116, leavers=16, rate=13.79%; outliers >7.5y: n=107, rate=12.15%; company rate=16.12%",
+     "so_what": "Retention budget aimed at promoting long-stagnant veterans to keep them is solving a problem the data says does not exist - those employees are already the most loyal cohort - while the actual flight risk (early-tenure, junior staff) goes underfunded.",
+     "recommendation": "Reallocate retention-promotion budget away from long-tenured stagnant employees toward first-two-year interventions, and instead manage the veteran group for engagement and knowledge transfer rather than flight risk. Expected impact: same spend, redirected at the 34.88% first-year cohort where each point of improvement saves ~2 employees.",
+     "priority": "high"
+    },
+    {
+     "finding": "Manager continuity, not promotion speed, is the relationship that predicts staying: leavers average 2.85 years with their current manager versus 4.37 for stayers (p=1.19e-10, correlation -0.156), and 2.9 vs 4.48 years in current role (p=3.19e-11, correlation -0.161) - both roughly 5x stronger correlates than YearsSinceLastPromotion (-0.033).",
+     "numbers": "YearsWithCurrManager: mean_leavers=2.85, mean_stayers=4.37, median 2 vs 3, p=1.19e-10, corr=-0.156; YearsInCurrentRole: 2.9 vs 4.48, p=3.19e-11, corr=-0.161; YearsSinceLastPromotion corr=-0.033",
+     "so_what": "Frequent manager reshuffles and team reorganizations reset the single strongest tenure-side loyalty bond in the data; an employee two years into a manager relationship is statistically in the leaver profile, while four-plus years matches the stayer profile.",
+     "recommendation": "Add 'manager changes in last 24 months' as a tracked risk flag in the attrition dashboard and require HR review before reassigning employees in their first two years under a manager. Realistic impact: protecting manager continuity for the 0-2y-with-manager population should shave 1-2 points off segment attrition given the 1.52-year mean gap.",
+     "priority": "high"
+    },
+    {
+     "finding": "Retention programs that target only juniors miss two-thirds of actual losses: leaver counts are almost identical across experience bands - Junior 75, Mid 82, Senior 80 - even though the rates collapse from 32.89% to 16.63% to 10.68%, because Senior headcount (749) is 3.3x Junior headcount (228).",
+     "numbers": "Junior (<5): n=228, leavers=75, rate=32.89%; Mid (5-9): n=493, leavers=82, rate=16.63%; Senior (10+): n=749, leavers=80, rate=10.68%; Mid+Senior = 162/237 = 68.4% of leavers",
+     "so_what": "Rate-based dashboards make attrition look like a junior-only problem, but in absolute replacement cost the company loses just as many mid-career (82) and senior (80) employees - who are far more expensive to replace - as juniors (75).",
+     "recommendation": "Build the BI dashboard to show absolute leaver counts alongside rates per experience band, and run three distinct playbooks: onboarding for Juniors, career-pathing for Mid (largest leaver group at 82), and knowledge-retention incentives for Seniors. Impact: addressing Mid attrition alone touches 34.6% of total losses.",
+     "priority": "high"
+    },
+    {
+     "finding": "Zero training is a cheap, high-signal risk flag: employees with 0 trainings last year churn at 27.78% (15 of 54) while a single training session coincides with a drop to 12.68% (9 of 71) - and leavers overall averaged fewer trainings than stayers (2.62 vs 2.83, p=0.0204).",
+     "numbers": "TrainingTimesLastYear 0: n=54, leavers=15, rate=27.78%; 1: n=71, leavers=9, rate=12.68%; 5: rate=11.76%; 6: rate=9.23%; means 2.62 vs 2.83, p=0.0204",
+     "so_what": "A group of only 54 people carries 1.7x the company attrition rate, and the biggest marginal gain in the entire training curve happens between zero and one session - signaling that total exclusion from development, not training volume, is what drives exits.",
+     "recommendation": "Institute a 'no employee at zero' rule: guarantee at least one training per year, with an automated HRIS report of anyone at zero trainings by Q3. If the zero-training cohort's rate fell to the one-training level (12.68%), that saves ~8 exits per year at the cost of ~54 training seats.",
+     "priority": "medium"
+    },
+    {
+     "finding": "Attrition rebounds at the end of long careers: employees with 21+ years of tenure leave at 12.12% (8 of 66), nearly double the 6.67% (12 of 180) of the 11-20 year band, echoed by the 56-60 age band churning at 17.02% (8 of 47) versus 9.19% at 36-45.",
+     "numbers": "TenureBand 11-20: n=180, leavers=12, rate=6.67%; 21+: n=66, leavers=8, rate=12.12%; AgeBand 56-60: n=47, leavers=8, rate=17.02%; AgeBand 36-45: rate=9.19%",
+     "so_what": "These late-tenure exits are small in count but carry disproportionate institutional knowledge; the doubling of the rate after year 20 suggests unmanaged retirement-adjacent departures rather than the loyalty plateau the 11-20 band shows.",
+     "recommendation": "Launch a succession and knowledge-transfer program (documentation sprints, mentoring pairs, phased-retirement options) triggered at 20 years of tenure or age 55. With only 66 employees at 21+ tenure and 47 aged 56-60, full coverage is low-cost and converts unplanned exits into planned transitions.",
+     "priority": "low"
+    }
+   ],
+   "dropped": 0,
+   "corrections": []
+  },
+  {
+   "lens": "people",
+   "kept": [
+    {
+     "finding": "Attrition collapses with age but is front-loaded to an extreme degree: employees aged 18-25 leave at 35.77% (44 of 123) versus 9.19% for ages 36-45 (43 of 468), and everyone 35 or under accounts for 160 of the 237 total leavers (44 + 116) — 67.5% of all attrition from 49.6% of headcount (123 + 606 = 729 of 1470).",
+     "numbers": "18-25: n=123, 44 leavers, 35.77%; 26-35: n=606, 116 leavers, 19.14%; 36-45: n=468, 43 leavers, 9.19%; mean age leavers 33.61 vs stayers 37.56 (p=1.38e-08)",
+     "priority": "critical",
+     "so_what": "Two out of three replacement hires, onboarding cycles, and lost-productivity costs are generated by the under-36 population; the pipeline of future senior staff is draining before it matures, and each early exit forfeits the training already invested.",
+     "recommendation": "Build an early-career retention track (structured 12/24-month career-path conversations, mentor pairing, and accelerated first promotion review) for the 729 employees aged 35 and under. Closing even half the gap between the 18-25 rate (35.77%) and the 26-35 rate (19.14%) saves roughly 10 exits/year in that small band alone; a 3-point reduction across all 729 saves ~22 exits/year."
+    },
+    {
+     "finding": "Single employees leave at 25.53% (120 of 470) — 2.5x the divorced rate of 10.09% (33 of 327) — and the file shows the 'No stock + Single' segment is exactly n=470 with 120 leavers at 25.53%, meaning every single employee holds StockOptionLevel 0, the level with the worst attrition (24.41%, 154 of 631).",
+     "numbers": "Single: n=470, 120 leavers, 25.53%; Divorced: 33/327, 10.09%; Married: 84/673, 12.48%; No stock + Single segment: n=470, 120 leavers, 25.53%; StockOptionLevel 0: 154/631, 24.41%; MaritalStatus chi2=46.2, p=9.46e-11",
+     "priority": "critical",
+     "so_what": "Singles are 32% of the workforce but supply 50.6% of all leavers (120 of 237), and their risk is compounded — not coincidental — because none of them hold retention equity. The 'single employees just leave more' narrative masks a fixable equity-allocation gap. The overlap also worsens under load: OverTime + Single runs at 49.62% (65 of 131).",
+     "recommendation": "Audit stock/retention-award eligibility so grants follow role and performance rather than correlating with life stage, and extend Level 1-equivalent retention awards to high-performing singles. Level 1 holders leave at 9.4% (56 of 596); closing even one-third of the 16.1-point gap between singles at level 0 (25.53%) and level 1 (9.4%) would save ~25 exits/year."
+    },
+    {
+     "finding": "Environment satisfaction shows a threshold effect, not a gradient: level 1 leaves at 25.35% (72 of 284), but levels 2, 3, and 4 cluster tightly at 14.98%, 13.69%, and 13.45% — so moving someone from 1 to 2 cuts risk by 10.4 points, while moving them from 2 to 4 gains only 1.5 points.",
+     "numbers": "EnvSat 1: 72/284, 25.35%; EnvSat 2: 43/287, 14.98%; EnvSat 3: 62/453, 13.69%; EnvSat 4: 60/446, 13.45%; chi2=22.5, p=5.12e-05",
+     "priority": "high",
+     "so_what": "Broad workplace-experience programs that nudge average scores upward are wasted spend; nearly all the attrition signal sits in the 284 people at rock bottom, who alone contribute 30% of total attrition (72 of 237 leavers).",
+     "recommendation": "Replace generic engagement initiatives with targeted remediation of the EnvSat=1 population: manager-led root-cause interviews and 90-day fix plans for that cohort only. Lifting them merely to level-2 conditions (14.98%) would cut their leavers from 72 to ~43 — about 29 saved exits/year, a 12% reduction in company-wide attrition."
+    },
+    {
+     "finding": "Job involvement has the steepest satisfaction-family gradient in the file: level 1 leaves at 33.73% (28 of 83) versus 9.03% at level 4 (13 of 144) — a 3.7x spread, wider than job satisfaction (22.84% to 11.33%) and with a stronger point-biserial correlation (-0.13 vs -0.103).",
+     "numbers": "JobInvolvement 1: 28/83, 33.73%; level 2: 71/375, 18.93%; level 4: 13/144, 9.03%; JobSatisfaction 1: 66/289, 22.84%; level 4: 52/459, 11.33%; correlations: JobInvolvement -0.13, JobSatisfaction -0.103, WorkLifeBalance -0.064",
+     "priority": "high",
+     "so_what": "Disengagement from the work itself predicts exit better than dissatisfaction with the job's conditions — yet involvement is rarely tracked as a flight-risk KPI. The 83 low-involvement employees are a small, precisely identifiable group already producing 28 leavers.",
+     "recommendation": "Add JobInvolvement=1 as a red flag in the attrition dashboard and trigger a role-redesign or internal-mobility conversation within 30 days of scoring. Moving the level-1 group (33.73%) just to the level-2 rate (18.93%) saves ~12 exits/year from only 83 people — the highest per-capita return of any intervention in this dataset."
+    },
+    {
+     "finding": "Work-life balance is non-monotonic: the worst score (level 1) leaves at 31.25% (25 of 80), but the best score (level 4) leaves at 17.65% (27 of 153) — higher than level 3's 14.22% (127 of 893).",
+     "numbers": "WLB 1: 25/80, 31.25%; WLB 2: 58/344, 16.86%; WLB 3: 127/893, 14.22%; WLB 4: 27/153, 17.65%; chi2=16.3, p=0.000973",
+     "priority": "medium",
+     "so_what": "The assumption 'better balance always means better retention' fails at the top: employees reporting perfect balance leave 3.4 points more often than those reporting good balance, suggesting some are under-challenged or already detached. Meanwhile the 80 people at level 1 are the concentrated crisis, at nearly double the company rate of 16.12%.",
+     "recommendation": "Treat the two ends differently: workload rebalancing and overtime caps for the 80 WLB=1 employees (moving them to the level-3 rate of 14.22% saves ~14 exits/year), and stretch-assignment or growth check-ins for WLB=4 scorers rather than assuming they are safe."
+    },
+    {
+     "finding": "Commute distance only bites beyond 10 km: attrition is flat at 13.77% (87 of 632) for 1-5 km and 14.47% (57 of 394) for 6-10 km, then jumps to 20.0% (48 of 240) at 11-20 km and 22.06% (45 of 204) at 21-29 km — the 444 employees beyond 10 km supply 93 leavers.",
+     "numbers": "1-5 km: 87/632, 13.77%; 6-10 km: 57/394, 14.47%; 11-20 km: 48/240, 20.0%; 21-29 km: 45/204, 22.06%; mean distance leavers 10.63 vs stayers 8.92 (p=0.00414); point-biserial 0.078",
+     "priority": "medium",
+     "so_what": "The weak overall correlation (0.078) hides a real step-change: nearly 4 in 10 leavers (93 of 237) commute more than 10 km. A blanket commute policy would overpay the 70% who live close and under-serve the 30% actually at risk.",
+     "recommendation": "Offer hybrid/remote days or a transport allowance specifically to the 444 employees living 11+ km away. Bringing their blended rate (93/444 = ~21%) down to the 6-10 km rate of 14.47% would save ~29 exits/year; even a partial effect of one-third saves ~10."
+    },
+    {
+     "finding": "Education field flags two hot pockets: Technical Degree holders leave at 24.24% (32 of 132) and HR-degree holders at 25.93% (7 of 27), versus 13.58% for Medical (63 of 464) and 14.69% for Life Sciences (89 of 606) — and the file's pay-gap table shows leaver underpayment in the roles these fields feed (Laboratory Technician leavers' median income 2,603 vs stayers' 3,068, a 15.2% gap; HR role leavers 2,652.5 vs 3,668.5, a 27.7% gap).",
+     "numbers": "Technical Degree: 32/132, 24.24%; HR field: 7/27, 25.93%; Medical: 63/464, 13.58%; Life Sciences: 89/606, 14.69%; EducationField chi2=16.0, p=0.00677; Lab Tech pay gap 15.2% (2603 vs 3068); HR role pay gap 27.7% (2652.5 vs 3668.5)",
+     "priority": "medium",
+     "so_what": "Technically credentialed staff are the most market-mobile, and the pay-gap data shows their leavers were the underpaid ones — this is compensation-driven, poachable attrition, not disengagement. Technical Degree holders alone contribute 32 leavers, more than the entire HR department (12).",
+     "recommendation": "Run a market-pay benchmark for technical-degree-heavy roles (Lab Technician, Research Scientist) and correct below-median salaries first. Closing the gap enough to bring Technical Degree attrition (24.24%) to the Life Sciences rate (14.69%) would save ~13 exits/year from 132 people."
+    },
+    {
+     "finding": "Gender is not a statistically meaningful attrition driver: males leave at 17.01% (150 of 882) versus females at 14.8% (87 of 588), but the chi-square test returns p=0.291 (chi2=1.1, flagged not significant in the file) — the only tested demographic dimension that fails significance.",
+     "numbers": "Male: 150/882, 17.01%; Female: 87/588, 14.8%; chi2=1.1, p=0.291, significant=false",
+     "priority": "low",
+     "so_what": "Dashboards that headline a male-vs-female attrition gap invite leadership to fund gender-targeted retention programs for an effect that is statistically noise, diverting budget from the drivers that are significant (marital/equity status p=9.46e-11, environment satisfaction p=5.12e-05, age).",
+     "recommendation": "Report gender as a monitoring dimension only, with the p-value shown, and reallocate any gender-specific retention budget toward the significant levers above; expected impact is cost avoidance and faster executive focus on the ~29-exit and ~25-exit opportunities rather than a 2.2-point gap that the data cannot distinguish from chance."
+    }
+   ],
+   "dropped": 0,
+   "corrections": []
+  },
+  {
+   "lens": "hotspots",
+   "kept": [
+    {
+     "finding": "Laboratory Technicians are the single biggest absolute attrition drain: 62 of the company's 237 leavers (26.2%) come from one role of 259 people churning at 23.94%, and together with Research Scientists (47 leavers of 292, 16.1%) two R&D roles account for 109 of 237 leavers (46%).",
+     "numbers": "Lab Tech n=259, leavers=62, rate=23.94%; Research Scientist n=292, leavers=47, rate=16.1%; company leavers=237; Lab Tech AvgMonthlyIncome=$3,237.17; R&D dept rate=13.84%",
+     "so_what": "Dashboards ranked by rate alone point at Sales, but nearly half of all replacement/hiring cost sits in two low-paid R&D roles; ignoring them means retention spend misses the largest cost pool.",
+     "recommendation": "Launch a Lab Tech-specific retention program (pay progression + supervisor stability). Bringing Lab Tech attrition from 23.94% down to the R&D department average of 13.84% would save roughly 26 leavers per year, an 11% cut in total company attrition from one role.",
+     "priority": "critical"
+    },
+    {
+     "finding": "Sales Representative is the most intense hotspot: 39.76% attrition (33 of 83), leavers earn a median of $2,325 vs $2,643 for stayers (12% gap), and the sub-segment working overtime loses 16 of 24 people (66.67%).",
+     "numbers": "Sales Rep n=83, leavers=33, rate=39.76%; median income leavers=$2,325 vs stayers=$2,643 (gap 12.0%); OverTime+Sales Rep n=24, leavers=16, rate=66.67%; AvgMonthlyIncome=$2,626",
+     "so_what": "The role effectively turns over its entire headcount every 2.5 years, destroying client relationships and pipeline continuity in Sales; two of every three overtime-working reps walk out.",
+     "recommendation": "Cap overtime for Sales Reps and raise the pay floor toward the stayer median (~$2,643). Cutting just the OT sub-segment to the overall Sales rate of 20.63% would save ~11 of those 16 leavers and pull the role below 30% attrition.",
+     "priority": "critical"
+    },
+    {
+     "finding": "High performance provides zero retention protection: employees rated 4 leave at 16.37% (37 of 226), statistically identical to the 16.08% of rating-3 employees (200 of 1,244), and salary hikes are flat across outcomes (leavers 15.1% vs stayers 15.23% mean hike, p=0.614).",
+     "numbers": "Rating 4: n=226, leavers=37, rate=16.37%; Rating 3: n=1,244, leavers=200, rate=16.08%; PercentSalaryHike mean leavers=15.1 vs stayers=15.23, p=0.614; StockOptionLevel 0 rate=24.41% vs level 1 rate=9.4%",
+     "so_what": "The company is losing 37 documented top performers a year while its reward system (hikes) does not differentiate at all -- the costliest exits are being treated exactly like average ones.",
+     "recommendation": "Introduce differentiated retention for rating-4 staff, led by stock options: moving high performers from stock level 0 (24.41% attrition) to level 1 (9.4%) is associated with a ~15-point rate drop, which on 226 high performers could preserve 15-20 of the 37 annual losses.",
+     "priority": "high"
+    },
+    {
+     "finding": "Overtime is the strongest single lever and it compounds with low pay: overtime workers leave at 30.53% vs 10.44% without (chi2=87.6, p=8.16e-21), and the overtime + income<$2.5K segment loses 48 of 70 people (68.57%) -- the worst cell in the entire dataset.",
+     "numbers": "OverTime Yes: n=416, leavers=127, rate=30.53%; No: n=1,054, leavers=110, rate=10.44%; OT+Income<2.5K: n=70, leavers=48, rate=68.57%; OT+JobLevel1: n=156, leavers=82, rate=52.56%; 127 of 237 leavers (53.6%) worked OT while OT staff are only 28.3% of headcount",
+     "so_what": "Over half of all attrition flows through the 28% of staff working overtime; asking the lowest-paid employees for unpaid extra hours converts 2 of every 3 of them into leavers.",
+     "recommendation": "Enforce an overtime cap (or paid OT premium) for JobLevel 1 and sub-$2.5K earners first. Normalizing the OT+JobLevel-1 segment (82 leavers at 52.56%) to the no-OT rate of 10.44% would save on the order of 60+ leavers -- a quarter of total attrition.",
+     "priority": "critical"
+    },
+    {
+     "finding": "The outliers section overturns the promotion-stagnation narrative: employees more than 7.5 years past their last promotion (n=107) leave at only 12.15%, below the 16.12% company average, and YearsSinceLastPromotion is statistically insignificant (leaver mean 1.95 vs stayer 2.23, p=0.199); meanwhile income outliers above $16,581 (n=114) almost never leave (4.39%).",
+     "numbers": "YearsSinceLastPromotion outliers: upper_fence=7.5, n=107, attrition=12.15%, p=0.199; MonthlyIncome outliers: upper_fence=$16,581, n=114, attrition=4.39%; segment '10y+ tenure, 7y+ no promotion': n=116, leavers=16, rate=13.79%; company rate=16.12%",
+     "so_what": "Retention budget aimed at long-stagnant senior staff is largely wasted -- they already stay; the real risk lives at the bottom of the pay scale, where leavers earn a mean of $4,787 vs $6,833 for stayers (p=4.43e-13).",
+     "recommendation": "Redirect any planned 'promotion fairness' retention spend toward the <$2.5K income band (34.07% attrition, 77 of 226 leavers), where each dollar addresses the segment with 8x the exit rate of top earners.",
+     "priority": "medium"
+    },
+    {
+     "finding": "Sales has the worst departmental rate (20.63%, 92 of 446) but R&D supplies the most bodies: 133 of 237 total leavers (56.1%) come from R&D despite its below-average 13.84% rate, purely because it holds 961 of 1,470 employees.",
+     "numbers": "Sales: n=446, leavers=92, rate=20.63%; R&D: n=961, leavers=133, rate=13.84%; HR: n=63, leavers=12, rate=19.05%; total leavers=237, total n=1,470",
+     "so_what": "Rate-ranked reporting sends executives to Sales while 56% of replacement cost accrues in R&D; the BI dashboard must show rate and absolute count side by side or leadership will chronically misallocate.",
+     "recommendation": "Build the attrition dashboard with a dual-axis view (rate vs leaver count) and set department targets on absolute leavers: even a 2-point rate improvement in R&D (13.84% to 11.84%) saves ~19 people, more than a 4-point improvement in HR's 63-person department could.",
+     "priority": "high"
+    },
+    {
+     "finding": "Attrition is front-loaded and young: first-year employees leave at 34.88% (75 of 215), ages 18-25 at 35.77% (44 of 123), juniors with <5 years total experience at 32.89% (75 of 228), and adding overtime to tenure of 2 years or less pushes the rate to 50.96% (53 of 104).",
+     "numbers": "Tenure 0-1: n=215, leavers=75, rate=34.88%; Age 18-25: n=123, leavers=44, rate=35.77%; Junior (<5 yrs): n=228, leavers=75, rate=32.89%; OT+Tenure<=2y: n=104, leavers=53, rate=50.96%; tenure 11-20 rate=6.67%",
+     "so_what": "Roughly a third of every new-hire cohort is gone within a year -- recruiting spend leaks before onboarding investment pays back, and half of new hires asked to work overtime leave.",
+     "recommendation": "Institute a 12-month protection window for new hires: no overtime in year one plus structured 30/60/90-day check-ins. Cutting first-year attrition from 34.88% to the 2-3 year rate of 18.43% would retain ~35 additional employees annually.",
+     "priority": "high"
+    }
+   ],
+   "dropped": 1,
+   "corrections": [
+    "[hotspots#2] The recommendation's 'saving 3-5 of the 12 annual exits' is not derivable from stats.json: lowering the HR role rate (23.08%, 12 of 52) to the cited department norm (19.05%) gives 52 x 0.1905 = 9.9 leavers, i.e. only ~2 exits saved, not 3-5. All other figures in the insight (HR dept 63/12/19.05%; HR role 52/12/23.08%; medians $2,652.50 vs $3,668.50; gap_pct 27.7; $1,016 gap; HR education field 25.93% = 7 of 27) are correct."
+   ]
+  }
+ ]
+}

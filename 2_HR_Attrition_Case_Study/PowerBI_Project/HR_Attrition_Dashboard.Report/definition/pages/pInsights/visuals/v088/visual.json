@@ -1,0 +1,74 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "v088",
+  "position": {
+    "x": 196,
+    "y": 694,
+    "z": 16000,
+    "height": 22,
+    "width": 1060
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Roadmap — sequenced by speed to impact",
+                    "textStyle": {
+                      "fontSize": "11.5pt",
+                      "fontWeight": "bold",
+                      "color": "#002B55"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "0-3 months (governance, not budget): overtime approval and caps, no overtime in year one, bottom-satisfaction triage, dashboard rebuilt around risk tiers.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "3-9 months (targeted compensation): pay floor for the lowest band, market benchmarks for the three bleeding roles, level-1 equity for 631 employees, differentiated merit matrix, structured onboarding.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "9+ months (structural): published L1-to-L2 progression framework, manager-continuity rules, early-career retention track.  ·  Combined objective: 16.1% to 10-11% within 12-18 months.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

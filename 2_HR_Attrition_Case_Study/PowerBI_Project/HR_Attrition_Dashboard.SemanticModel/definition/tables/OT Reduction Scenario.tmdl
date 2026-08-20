@@ -1,0 +1,20 @@
+table 'OT Reduction Scenario'
+	lineageTag: f926fece-799d-4424-bf22-f1c8f5d85b93
+
+	column 'OT Reduction %'
+		dataType: double
+		formatString: 0%
+		lineageTag: 152de6cd-2fa9-4b1b-8234-af4da320e7ed
+		summarizeBy: none
+		sourceColumn: OT Reduction %
+
+	partition 'OT Reduction Scenario' = m
+		mode: import
+		source =
+				let
+				    Steps = List.Transform({0..20}, each _ * 0.05),
+				    Converted = Table.FromList(Steps, Splitter.SplitByNothing(), {"OT Reduction %"}),
+				    Typed = Table.TransformColumnTypes(Converted, {{"OT Reduction %", type number}})
+				in
+				    Typed
+

@@ -1,0 +1,30 @@
+table DimJobRole
+	lineageTag: 4c4c0ae9-1031-44ac-9e36-f37baf102e93
+
+	column JobRole
+		dataType: string
+		lineageTag: ea180500-6079-4c70-a1d5-b85eca956d9d
+		summarizeBy: none
+		sourceColumn: JobRole
+
+	column JobRoleKey
+		dataType: int64
+		isHidden
+		lineageTag: 424991f3-f8a0-42fc-9269-cd863bfc52dd
+		summarizeBy: none
+		sourceColumn: JobRoleKey
+
+	partition DimJobRole = m
+		mode: import
+		source =
+				let
+				    Source = Employees_Raw,
+				    KeptColumns = Table.SelectColumns(Source, {"JobRole"}),
+				    RemovedDuplicates = Table.Distinct(KeptColumns),
+				    Sorted = Table.Sort(RemovedDuplicates, {{"JobRole", Order.Ascending}}),
+				    AddedKey = Table.AddIndexColumn(Sorted, "JobRoleKey", 1, 1, Int64.Type)
+				in
+				    AddedKey
+
+	annotation PBI_ResultType = Table
+

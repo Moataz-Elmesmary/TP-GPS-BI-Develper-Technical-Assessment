@@ -1,0 +1,139 @@
+table DaxMeasures
+	lineageTag: 308f5a45-a43b-4c95-9a9c-f6e349f70e72
+
+	measure 'Total Employees' = COUNTROWS ( FactEmployee )
+		formatString: #,0
+		lineageTag: 1098d5d2-a291-4437-bc6a-dbe1fd082ac1
+
+	measure Leavers = VAR _leavers = CALCULATE ( COUNTROWS ( FactEmployee ), FactEmployee[Attrition] = "Yes" ) RETURN COALESCE ( _leavers, 0 )
+		formatString: #,0
+		lineageTag: f7aaa64a-ad6a-4661-88c0-ac51bbef9ecd
+
+	measure 'Active Employees' = VAR _total = [Total Employees] VAR _left = [Leavers] RETURN _total - _left
+		formatString: #,0
+		lineageTag: eb127eb7-70d1-46e5-9485-43408c1ce056
+
+	measure 'Attrition Rate %' = VAR _leavers = [Leavers] VAR _total = [Total Employees] RETURN DIVIDE ( _leavers, _total )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 0fb5fe27-8121-4e0f-8fb0-48e964e19d5d
+
+	measure 'Attrition Rate (Company) %' = VAR _allLeavers = CALCULATE ( [Leavers], REMOVEFILTERS () ) VAR _allTotal = CALCULATE ( [Total Employees], REMOVEFILTERS () ) RETURN DIVIDE ( _allLeavers, _allTotal )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 8fe84f5f-98b6-4aad-b203-fd7bc0688427
+
+	measure 'Attrition vs Company (pp)' = VAR _segment = [Attrition Rate %] VAR _company = [Attrition Rate (Company) %] RETURN _segment - _company
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: cc8f9750-9ff5-49e4-8bbd-75b57d37ec0c
+
+	measure 'Avg Monthly Income' = AVERAGE ( FactEmployee[MonthlyIncome] )
+		formatString: "$"#,0
+		lineageTag: e0ed70e3-e2cc-4e9a-95c2-5caf3ccaa014
+
+	measure 'Avg Income Leavers' = VAR _avg = CALCULATE ( AVERAGE ( FactEmployee[MonthlyIncome] ), FactEmployee[Attrition] = "Yes" ) RETURN _avg
+		formatString: "$"#,0
+		lineageTag: c50ceef0-fc9e-4060-a67a-21670f3a1187
+
+	measure 'Avg Income Stayers' = VAR _avg = CALCULATE ( AVERAGE ( FactEmployee[MonthlyIncome] ), FactEmployee[Attrition] = "No" ) RETURN _avg
+		formatString: "$"#,0
+		lineageTag: 24913598-4394-46ef-b90c-a2889d3d2cc7
+
+	measure 'Income Gap (Stayers - Leavers)' = VAR _stay = [Avg Income Stayers] VAR _leave = [Avg Income Leavers] RETURN _stay - _leave
+		formatString: "$"#,0
+		lineageTag: 76b023db-4808-479e-b369-ebdb71f41c87
+
+	measure 'Income Gap %' = VAR _gap = [Income Gap (Stayers - Leavers)] VAR _stay = [Avg Income Stayers] RETURN DIVIDE ( _gap, _stay )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 362cf3d6-7b28-484a-a1b5-d1fce6fbdd90
+
+	measure 'Estimated Replacement Cost' = VAR _costPerLeaver = [Avg Income Leavers] * 6 VAR _leavers = [Leavers] RETURN _costPerLeaver * _leavers
+		formatString: "$"#,0
+		lineageTag: b962a86a-0ca9-4740-ae28-d53bc48b598b
+
+	measure 'Attrition Rate OT %' = VAR _l = CALCULATE ( [Leavers], FactEmployee[OverTime] = "Yes" ) VAR _t = CALCULATE ( [Total Employees], FactEmployee[OverTime] = "Yes" ) RETURN DIVIDE ( _l, _t )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 620e1e92-3482-49a7-ab41-1c8d77750e28
+
+	measure 'Attrition Rate No-OT %' = VAR _l = CALCULATE ( [Leavers], FactEmployee[OverTime] = "No" ) VAR _t = CALCULATE ( [Total Employees], FactEmployee[OverTime] = "No" ) RETURN DIVIDE ( _l, _t )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: f08b4b32-74bc-4da6-b97f-1666cf216587
+
+	measure 'OverTime Risk Multiplier' = VAR _ot = [Attrition Rate OT %] VAR _noOt = [Attrition Rate No-OT %] RETURN DIVIDE ( _ot, _noOt )
+		formatString: 0.0"x"
+		lineageTag: 107bfd37-28ce-4fb3-887d-dbf2c017255b
+
+	measure '% of Total Leavers' = VAR _segmentLeavers = [Leavers] VAR _allLeavers = CALCULATE ( [Leavers], REMOVEFILTERS () ) RETURN DIVIDE ( _segmentLeavers, _allLeavers )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: f04df050-7e88-435e-b542-333fe312dbbd
+
+	measure 'High-Risk Headcount' = VAR _risk = CALCULATE ( COUNTROWS ( FactEmployee ), FactEmployee[Attrition] = "No", FactEmployee[OverTime] = "Yes", FactEmployee[JobLevel] = 1 ) RETURN _risk
+		formatString: #,0
+		lineageTag: e4b43421-d288-4d04-ae71-947081c432f7
+
+	measure 'Avg Job Satisfaction' = AVERAGE ( FactEmployee[JobSatisfaction] )
+		formatString: 0.00
+		lineageTag: 9796bf99-8f7c-45f9-9f08-447d6426b390
+
+	measure 'Attrition Risk Flag' = VAR _delta = [Attrition vs Company (pp)] RETURN SWITCH ( TRUE (), _delta >= 0.10, "Critical", _delta >= 0.03, "Elevated", _delta <= -0.05, "Healthy", "Watch" )
+		lineageTag: 549168f0-a90f-4a4d-a4f9-ace528b510f3
+
+	measure 'Income Outlier Count (IQR)' = VAR _q1 = PERCENTILEX.INC ( ALL ( FactEmployee ), FactEmployee[MonthlyIncome], 0.25 ) VAR _q3 = PERCENTILEX.INC ( ALL ( FactEmployee ), FactEmployee[MonthlyIncome], 0.75 ) VAR _fence = _q3 + 1.5 * ( _q3 - _q1 ) RETURN CALCULATE ( COUNTROWS ( FactEmployee ), FactEmployee[MonthlyIncome] > _fence )
+		formatString: #,0
+		lineageTag: 89f8ea2d-f84f-4e5d-8098-b22f1ffa49ad
+
+	measure 'Attrition Rate Income-Outliers %' = VAR _q1 = PERCENTILEX.INC ( ALL ( FactEmployee ), FactEmployee[MonthlyIncome], 0.25 ) VAR _q3 = PERCENTILEX.INC ( ALL ( FactEmployee ), FactEmployee[MonthlyIncome], 0.75 ) VAR _fence = _q3 + 1.5 * ( _q3 - _q1 ) VAR _l = CALCULATE ( [Leavers], FactEmployee[MonthlyIncome] > _fence ) VAR _t = CALCULATE ( [Total Employees], FactEmployee[MonthlyIncome] > _fence ) RETURN DIVIDE ( _l, _t )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 13a4cf45-02fe-43f4-bab0-b77ddd830240
+
+	measure 'OT Reduction Selected' = SELECTEDVALUE ( 'OT Reduction Scenario'[OT Reduction %], 0 )
+		formatString: 0%
+		lineageTag: 7ea5c88e-6c28-4e2c-827f-8892bb0b1a8d
+
+	measure 'Simulated Leavers' = VAR _red = [OT Reduction Selected] VAR _otHead = CALCULATE ( [Total Employees], FactEmployee[OverTime] = "Yes" ) VAR _otRate = [Attrition Rate OT %] VAR _noOtRate = [Attrition Rate No-OT %] VAR _noOtLeavers = CALCULATE ( [Leavers], FactEmployee[OverTime] = "No" ) VAR _simOt = _otHead * ( ( 1 - _red ) * _otRate + _red * _noOtRate ) RETURN _noOtLeavers + _simOt
+		formatString: #,0
+		lineageTag: 47392cac-7e73-47b7-84a2-3e1bf65f6372
+
+	measure 'Simulated Attrition Rate %' = VAR _sim = [Simulated Leavers] VAR _t = [Total Employees] RETURN DIVIDE ( _sim, _t )
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 6d74738f-4ce3-45c9-9113-63bd53554fc9
+
+	measure 'Exits Prevented (Scenario)' = VAR _base = [Leavers] VAR _sim = [Simulated Leavers] RETURN _base - _sim
+		formatString: #,0
+		lineageTag: 58b24a4c-67ed-4ed9-a67b-63968145d3b3
+
+	measure 'Cost Saved (Scenario)' = VAR _n = [Exits Prevented (Scenario)] VAR _c = [Avg Income Leavers] * 6 RETURN _n * _c
+		formatString: "$"#,0
+		lineageTag: d443e8fd-f535-4621-981c-a2027022421c
+
+	measure 'Scenario Narrative' = VAR _r = [OT Reduction Selected] VAR _n = [Exits Prevented (Scenario)] VAR _c = [Cost Saved (Scenario)] RETURN "Cutting overtime exposure by " & FORMAT ( _r, "0%" ) & " prevents ~" & FORMAT ( _n, "#,0" ) & " exits and saves " & FORMAT ( _c, "$#,0" )
+		lineageTag: 93ebb587-53ac-4115-abff-2f79f9db0692
+
+	measure 'Role Rank by Attrition' = RANKX ( ALL ( DimJobRole[JobRole] ), [Attrition Rate %],, DESC )
+		formatString: #,0
+		lineageTag: 4c3a1d41-ae67-452d-9a7e-d6cf137bb421
+
+	measure 'Overview Title' = VAR _r = [Attrition Rate %] VAR _n = [Leavers] RETURN "Attrition Overview — " & FORMAT ( _n, "#,0" ) & " leavers (" & FORMAT ( _r, "0.0%" ) & ")"
+		lineageTag: 7d4f1101-2dba-47e6-914b-3ee89f856508
+
+	measure 'Bar Colour' = VAR _seg = [Attrition Rate %] VAR _company = [Attrition Rate (Company) %] RETURN IF ( _seg > _company, "#D03B3B", "#003D77" )
+		lineageTag: 70eb6f04-d189-455f-aa7c-90144335a959
+
+	measure 'Risk Colour Bold' = VAR _seg = [Attrition Rate %] VAR _company = [Attrition Rate (Company) %] RETURN SWITCH ( TRUE (), _seg >= _company * 2, "#B02525", _seg > _company, "#D03B3B", _seg <= _company * 0.6, "#00AC4F", "#003D77" )
+		lineageTag: 10de4d0c-4e92-494a-bbb7-20938fb54683
+
+	column Col1
+		dataType: int64
+		isHidden
+		lineageTag: 1ddd8948-3211-4606-a09e-bf9d638b971f
+		summarizeBy: none
+		sourceColumn: Col1
+
+	partition DaxMeasures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Col1 = Int64.Type], {})
+				in
+				    Source
+
+	changedProperty = Name
+

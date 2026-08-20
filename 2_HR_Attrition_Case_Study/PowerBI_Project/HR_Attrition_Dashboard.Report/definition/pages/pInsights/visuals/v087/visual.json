@@ -1,0 +1,63 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "v087",
+  "position": {
+    "x": 740,
+    "y": 552,
+    "z": 15000,
+    "height": 132,
+    "width": 504
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "8 · What is NOT driving attrition",
+                    "textStyle": {
+                      "fontSize": "11pt",
+                      "fontWeight": "bold",
+                      "color": "#002B55"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Promotion stagnation is insignificant (p = 0.199) and stagnant veterans are the most loyal at 13.79%. Gender (p = 0.291) and HourlyRate (p = 0.791) are noise. Manager continuity is real: 2.85 years for leavers vs 4.37 for stayers.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "ACTION — Drop the non-predictive fields from the KPI set, redirect promotion-fairness budget to the first-year cohort, track manager changes as a standing risk flag.",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "fontWeight": "bold",
+                      "color": "#398A83"
+                    }
+                  }
+                ],
+                "horizontalTextAlignment": "left"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

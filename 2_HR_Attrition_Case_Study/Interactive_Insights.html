@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HR Attrition Analysis — BI Developer Case Study</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:#F4F7FB;color:#1A1A1A;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.55}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{margin:0;font-weight:650;letter-spacing:-.01em}
+  /* hero */
+  header{background:#002B55;color:#fff;padding:56px 0 44px}
+  header h1{font-size:38px;line-height:1.15}
+  .rule{height:4px;width:120px;margin:18px 0 16px;border-radius:2px;
+    background:linear-gradient(90deg,#003D77 0%,#00AC4F 100%)}
+  .sub{color:#B8CFE6;font-size:17px;margin:0 0 6px}
+  .by{color:#7FA3C4;font-size:14px}
+  /* kpi */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:-34px 0 40px}
+  .kpi{background:#FFFFFF;border:1px solid #E3EAF2;border-radius:10px;padding:20px 22px;
+    box-shadow:0 1px 3px rgba(0,43,85,.06);transition:transform .18s,box-shadow .18s}
+  .kpi:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,43,85,.10)}
+  .kpi .n{font-size:34px;font-weight:680;color:#003D77;letter-spacing:-.02em}
+  .kpi .n.risk{color:#D03B3B}
+  .kpi .l{font-size:13px;color:#52514E;margin-top:4px}
+  /* sections */
+  section{margin:0 0 44px}
+  .sec-h{margin:0 0 6px;font-size:22px;color:#002B55}
+  .sec-s{margin:0 0 20px;color:#52514E;font-size:15px}
+  .card{background:#FFFFFF;border:1px solid #E3EAF2;border-radius:10px;padding:22px 24px;
+    box-shadow:0 1px 3px rgba(0,43,85,.05)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .chart{width:100%;height:auto;display:block}
+  .chart .lbl{font-size:12px;fill:#52514E}
+  .chart .val{font-size:12px;fill:#1A1A1A;font-weight:600}
+  .chart .ax{font-size:11px;fill:#8B97A6}
+  .bar{transform-origin:left center;transform:scaleX(0);transition:transform .85s cubic-bezier(.2,.7,.3,1)}
+  .vbar{transform-origin:center bottom;transform:scaleY(0);transition:transform .8s cubic-bezier(.2,.7,.3,1)}
+  .spark{stroke-dasharray:2600;stroke-dashoffset:2600;transition:stroke-dashoffset 1.3s ease}
+  .in .bar{transform:scaleX(1)} .in .vbar{transform:scaleY(1)} .in .spark{stroke-dashoffset:0}
+  .cap{font-size:13px;color:#52514E;margin:12px 0 0}
+  .cap b{color:#1A1A1A}
+  .callout{display:inline-block;margin-top:10px;padding:6px 12px;border-radius:6px;
+    background:rgba(208,59,59,.09);color:#D03B3B;font-weight:650;font-size:14px}
+  .callout.good{background:rgba(0,172,79,.10);color:#04803D}
+  /* accordion */
+  .acc{background:#FFFFFF;border:1px solid #E3EAF2;border-radius:10px;margin-bottom:10px;overflow:hidden}
+  .acc-h{width:100%;display:flex;align-items:center;gap:14px;padding:16px 20px;background:none;
+    border:0;cursor:pointer;text-align:left;font:inherit;color:#1A1A1A;transition:background .15s}
+  .acc-h:hover{background:#F7FAFD}
+  .rank{flex:none;width:30px;height:30px;border-radius:50%;background:#003D77;color:#fff;
+    display:grid;place-items:center;font-size:14px;font-weight:650}
+  .acc-t{flex:1;font-weight:560;font-size:15px}
+  .chev{flex:none;width:9px;height:9px;border-right:2px solid #52514E;border-bottom:2px solid #52514E;
+    transform:rotate(45deg);transition:transform .22s;margin-right:4px}
+  .acc.open .chev{transform:rotate(-135deg)}
+  .acc-b{max-height:0;overflow:hidden;transition:max-height .32s ease}
+  .acc-inner{padding:0 20px 18px 64px}
+  .ins{margin:0 0 12px;color:#1A1A1A;font-size:14.5px}
+  .act{margin:0;color:#52514E;font-size:14px;padding-left:14px;border-left:3px solid #00AC4F}
+  .act-l{display:block;color:#04803D;font-weight:650;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+  /* plan */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .plan{background:#FFFFFF;border:1px solid #E3EAF2;border-radius:10px;padding:20px 22px}
+  .plan-h{border-left:4px solid;padding-left:12px;margin-bottom:14px}
+  .plan-h h3{font-size:16px;color:#002B55}
+  .period{font-size:12px;color:#52514E}
+  .plan ul{margin:0;padding-left:18px}
+  .plan li{font-size:13.5px;color:#52514E;margin-bottom:11px}
+  /* table */
+  .tbl-wrap{overflow-x:auto;border:1px solid #E3EAF2;border-radius:10px;background:#FFFFFF}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th{position:sticky;top:0;background:#003D77;color:#fff;text-align:left;padding:12px 16px;
+    font-weight:600;cursor:pointer;user-select:none;white-space:nowrap}
+  th:hover{background:#004C93}
+  th::after{content:"";display:inline-block;margin-left:6px;opacity:.5}
+  th.asc::after{content:"\25B2"} th.desc::after{content:"\25BC"}
+  td{padding:11px 16px;border-top:1px solid #EDF2F7;color:#52514E}
+  td.num{text-align:right;font-variant-numeric:tabular-nums}
+  tbody tr:nth-child(even){background:#FAFCFE}
+  tbody tr:hover{background:#F1F7FC}
+  footer{background:#002B55;color:#B8CFE6;padding:32px 0;font-size:14px;margin-top:20px}
+  footer b{color:#fff}
+  @media(max-width:1024px){.kpis{grid-template-columns:repeat(2,1fr)}
+    .grid2,.plans{grid-template-columns:1fr}header h1{font-size:30px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>HR Attrition Analysis</h1>
+    <div class="rule"></div>
+    <p class="sub">Where attrition concentrates — and the exits we can prevent</p>
+    <p class="by">BI Developer Case Study &middot; GBS BI HUB &middot; Moataz Elmesmary &middot; August 2026</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="kpis">
+    <div class="kpi"><div class="n" data-to="1470" data-fmt="int">0</div><div class="l">employees in scope</div></div>
+    <div class="kpi"><div class="n risk" data-to="237" data-fmt="int">0</div><div class="l">left the company</div></div>
+    <div class="kpi"><div class="n risk" data-to="16.12" data-fmt="pct">0</div><div class="l">attrition rate</div></div>
+    <div class="kpi"><div class="n" data-to="6.8" data-fmt="cur">0</div><div class="l">est. replacement cost</div></div>
+  </div>
+
+  <section>
+    <h2 class="sec-h">Where it happens</h2>
+    <p class="sec-s">Rate finds the intensity; absolute counts find the money. Bars above the company
+      average are shown in red.</p>
+    <div class="card reveal">
+      <svg class="chart" viewBox="0 0 980 376" role="img"><line x1="434.0" y1="6" x2="434.0" y2="352" stroke="#52514E" stroke-width="1.2" stroke-dasharray="5 4"/><text x="440.0" y="368" class="ax">company average 16.1%</text><text x="198" y="26" class="lbl" text-anchor="end">Sales Representative</text><rect class="bar" x="210" y="12" width="552.5" height="22" rx="3" fill="#D03B3B" style="--w:552.5px"/><text x="770.5" y="28" class="val">39.8%  (33 of 83)</text><text x="198" y="64" class="lbl" text-anchor="end">Laboratory Technician</text><rect class="bar" x="210" y="50" width="332.6" height="22" rx="3" fill="#D03B3B" style="--w:332.6px"/><text x="550.6" y="66" class="val">23.9%  (62 of 259)</text><text x="198" y="102" class="lbl" text-anchor="end">Human Resources</text><rect class="bar" x="210" y="88" width="320.7" height="22" rx="3" fill="#D03B3B" style="--w:320.7px"/><text x="538.7" y="104" class="val">23.1%  (12 of 52)</text><text x="198" y="140" class="lbl" text-anchor="end">Sales Executive</text><rect class="bar" x="210" y="126" width="242.9" height="22" rx="3" fill="#D03B3B" style="--w:242.9px"/><text x="460.9" y="142" class="val">17.5%  (57 of 326)</text><text x="198" y="178" class="lbl" text-anchor="end">Research Scientist</text><rect class="bar" x="210" y="164" width="223.7" height="22" rx="3" fill="#003D77" style="--w:223.7px"/><text x="441.7" y="180" class="val">16.1%  (47 of 292)</text><text x="198" y="216" class="lbl" text-anchor="end">Manufacturing Director</text><rect class="bar" x="210" y="202" width="95.9" height="22" rx="3" fill="#003D77" style="--w:95.9px"/><text x="313.9" y="218" class="val">6.9%  (10 of 145)</text><text x="198" y="254" class="lbl" text-anchor="end">Healthcare Representative</text><rect class="bar" x="210" y="240" width="95.5" height="22" rx="3" fill="#003D77" style="--w:95.5px"/><text x="313.5" y="256" class="val">6.9%  (9 of 131)</text><text x="198" y="292" class="lbl" text-anchor="end">Manager</text><rect class="bar" x="210" y="278" width="68.1" height="22" rx="3" fill="#003D77" style="--w:68.1px"/><text x="286.1" y="294" class="val">4.9%  (5 of 102)</text><text x="198" y="330" class="lbl" text-anchor="end">Research Director</text><rect class="bar" x="210" y="316" width="34.7" height="22" rx="3" fill="#003D77" style="--w:34.7px"/><text x="252.7" y="332" class="val">2.5%  (2 of 80)</text></svg>
+      <p class="cap"><b>Sales Representatives lose 39.8% of their people</b> — the role turns over its
+        headcount roughly every two and a half years. Research &amp; Development has the lowest rate
+        (13.8%) yet supplies 133 of the 237 leavers, because it holds two thirds of the workforce.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-h">The strongest driver</h2>
+    <p class="sec-s">Overtime beats every other factor tested — including job role — on the chi-square test
+      (87.6, p &lt; 10⁻²⁰).</p>
+    <div class="grid2">
+      <div class="card reveal">
+        <svg class="chart" viewBox="0 0 460 260" role="img"><line x1="44" y1="140.0" x2="444" y2="140.0" stroke="#52514E" stroke-width="1.1" stroke-dasharray="5 4"/><rect class="vbar" x="101.0" y="167.5" width="84.0" height="50.5" rx="3" fill="#003D77" style="--h:50.5px;--y:167.5px"/><text x="143.0" y="159.5" class="val" text-anchor="middle">10.4%</text><text x="143.0" y="238" class="lbl" text-anchor="middle">No overtime</text><text x="143.0" y="253" class="ax" text-anchor="middle">110 of 1054</text><rect class="vbar" x="299.0" y="70.3" width="84.0" height="147.7" rx="3" fill="#D03B3B" style="--h:147.7px;--y:70.3px"/><text x="341.0" y="62.3" class="val" text-anchor="middle">30.5%</text><text x="341.0" y="238" class="lbl" text-anchor="middle">Overtime</text><text x="341.0" y="253" class="ax" text-anchor="middle">127 of 416</text><line x1="36" y1="218" x2="444" y2="218" stroke="#D6DEE8" stroke-width="1"/></svg>
+        <p class="cap">The 416 employees working overtime are 28.3% of headcount but produce
+          <b>127 of the 237 leavers — 53.6% of all attrition</b>.</p>
+        <span class="callout">2.9× the risk</span>
+      </div>
+      <div class="card reveal">
+        <svg class="chart" viewBox="0 0 560 280" role="img"><polygon points="48,234 48.0,67.6 145.6,153.7 243.2,186.7 340.8,162.6 438.4,168.0 536.0,215.6 536,234" fill="#003D77" opacity="0.10"/><line x1="48" y1="155.3" x2="536" y2="155.3" stroke="#52514E" stroke-width="1.1" stroke-dasharray="5 4"/><polyline class="spark" points="48.0,67.6 145.6,153.7 243.2,186.7 340.8,162.6 438.4,168.0 536.0,215.6" fill="none" stroke="#003D77" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="48.0" cy="67.6" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="48.0" y="55.6" class="val" text-anchor="middle">34.1%</text><text x="48.0" y="256" class="lbl" text-anchor="middle">&lt;2.5K</text><circle cx="145.6" cy="153.7" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="145.6" y="141.7" class="val" text-anchor="middle">16.4%</text><text x="145.6" y="256" class="lbl" text-anchor="middle">2.5-5K</text><circle cx="243.2" cy="186.7" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="243.2" y="174.7" class="val" text-anchor="middle">9.7%</text><text x="243.2" y="256" class="lbl" text-anchor="middle">5-7.5K</text><circle cx="340.8" cy="162.6" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="340.8" y="150.6" class="val" text-anchor="middle">14.6%</text><text x="340.8" y="256" class="lbl" text-anchor="middle">7.5-10K</text><circle cx="438.4" cy="168.0" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="438.4" y="156.0" class="val" text-anchor="middle">13.5%</text><text x="438.4" y="256" class="lbl" text-anchor="middle">10-15K</text><circle cx="536.0" cy="215.6" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="536.0" y="203.6" class="val" text-anchor="middle">3.8%</text><text x="536.0" y="256" class="lbl" text-anchor="middle">15-20K</text><text x="280" y="274" class="ax" text-anchor="middle">Monthly income (USD)</text><line x1="38" y1="234" x2="536" y2="234" stroke="#D6DEE8" stroke-width="1"/></svg>
+        <p class="cap">A clean pay gradient: attrition falls almost nine-fold from the lowest band to the
+          highest. Leavers earned <b>$4,787</b> a month on average against <b>$6,833</b> for stayers.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-h">Risk is multiplicative, not additive</h2>
+    <p class="sec-s">Overtime layered on any other weakness turns attrition into a coin flip.</p>
+    <div class="card reveal">
+      <svg class="chart" viewBox="0 0 980 224" role="img"><line x1="333.5" y1="6" x2="333.5" y2="200" stroke="#52514E" stroke-width="1.2" stroke-dasharray="5 4"/><text x="339.5" y="216" class="ax">company average 16.1%</text><text x="198" y="26" class="lbl" text-anchor="end">Overtime + income under $2.5K</text><rect class="bar" x="210" y="12" width="525.2" height="22" rx="3" fill="#D03B3B" style="--w:525.2px"/><text x="743.2" y="28" class="val">68.6%  (48 of 70)</text><text x="198" y="64" class="lbl" text-anchor="end">Overtime + Sales Representative</text><rect class="bar" x="210" y="50" width="510.6" height="22" rx="3" fill="#D03B3B" style="--w:510.6px"/><text x="728.6" y="66" class="val">66.7%  (16 of 24)</text><text x="198" y="102" class="lbl" text-anchor="end">Overtime + entry level (L1)</text><rect class="bar" x="210" y="88" width="402.6" height="22" rx="3" fill="#D03B3B" style="--w:402.6px"/><text x="620.6" y="104" class="val">52.6%  (82 of 156)</text><text x="198" y="140" class="lbl" text-anchor="end">Overtime + tenure 2 years or less</text><rect class="bar" x="210" y="126" width="390.3" height="22" rx="3" fill="#D03B3B" style="--w:390.3px"/><text x="608.3" y="142" class="val">51.0%  (53 of 104)</text><text x="198" y="178" class="lbl" text-anchor="end">Overtime + single</text><rect class="bar" x="210" y="164" width="380.0" height="22" rx="3" fill="#D03B3B" style="--w:380.0px"/><text x="598.0" y="180" class="val">49.6%  (65 of 131)</text></svg>
+      <p class="cap">In the worst cell — overtime workers earning under $2,500 a month —
+        <b>an employee is more likely to leave than to stay</b>. The overtime + entry-level segment alone
+        (156 people, 10.6% of headcount) produces 82 leavers: over a third of company-wide attrition.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-h">When they leave</h2>
+    <p class="sec-s">Attrition is front-loaded — and equity is the cheapest brake on it.</p>
+    <div class="grid2">
+      <div class="card reveal">
+        <svg class="chart" viewBox="0 0 560 280" role="img"><polygon points="48,234 48.0,67.6 145.6,146.1 243.2,171.6 340.8,175.4 438.4,202.2 536.0,176.2 536,234" fill="#003D77" opacity="0.10"/><line x1="48" y1="157.1" x2="536" y2="157.1" stroke="#52514E" stroke-width="1.1" stroke-dasharray="5 4"/><polyline class="spark" points="48.0,67.6 145.6,146.1 243.2,171.6 340.8,175.4 438.4,202.2 536.0,176.2" fill="none" stroke="#003D77" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="48.0" cy="67.6" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="48.0" y="55.6" class="val" text-anchor="middle">34.9%</text><text x="48.0" y="256" class="lbl" text-anchor="middle">0-1</text><circle cx="145.6" cy="146.1" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="145.6" y="134.1" class="val" text-anchor="middle">18.4%</text><text x="145.6" y="256" class="lbl" text-anchor="middle">2-3</text><circle cx="243.2" cy="171.6" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="243.2" y="159.6" class="val" text-anchor="middle">13.1%</text><text x="243.2" y="256" class="lbl" text-anchor="middle">4-5</text><circle cx="340.8" cy="175.4" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="340.8" y="163.4" class="val" text-anchor="middle">12.3%</text><text x="340.8" y="256" class="lbl" text-anchor="middle">6-10</text><circle cx="438.4" cy="202.2" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="438.4" y="190.2" class="val" text-anchor="middle">6.7%</text><text x="438.4" y="256" class="lbl" text-anchor="middle">11-20</text><circle cx="536.0" cy="176.2" r="5.5" fill="#003D77" stroke="#fff" stroke-width="2"/><text x="536.0" y="164.2" class="val" text-anchor="middle">12.1%</text><text x="536.0" y="256" class="lbl" text-anchor="middle">21+</text><text x="280" y="274" class="ax" text-anchor="middle">Years at company</text><line x1="38" y1="234" x2="536" y2="234" stroke="#D6DEE8" stroke-width="1"/></svg>
+        <p class="cap"><b>One in three new hires never reaches year two.</b> Recruiting and onboarding
+          spend is written off before it pays back.</p>
+      </div>
+      <div class="card reveal">
+        <svg class="chart" viewBox="0 0 520 260" role="img"><line x1="44" y1="120.5" x2="504" y2="120.5" stroke="#52514E" stroke-width="1.1" stroke-dasharray="5 4"/><rect class="vbar" x="72.5" y="70.3" width="57.0" height="147.7" rx="3" fill="#D03B3B" style="--h:147.7px;--y:70.3px"/><text x="101.0" y="62.3" class="val" text-anchor="middle">24.4%</text><text x="101.0" y="238" class="lbl" text-anchor="middle">Level 0</text><text x="101.0" y="253" class="ax" text-anchor="middle">n=631</text><rect class="vbar" x="186.5" y="161.1" width="57.0" height="56.9" rx="3" fill="#003D77" style="--h:56.9px;--y:161.1px"/><text x="215.0" y="153.1" class="val" text-anchor="middle">9.4%</text><text x="215.0" y="238" class="lbl" text-anchor="middle">Level 1</text><text x="215.0" y="253" class="ax" text-anchor="middle">n=596</text><rect class="vbar" x="300.5" y="172.1" width="57.0" height="45.9" rx="3" fill="#003D77" style="--h:45.9px;--y:172.1px"/><text x="329.0" y="164.1" class="val" text-anchor="middle">7.6%</text><text x="329.0" y="238" class="lbl" text-anchor="middle">Level 2</text><text x="329.0" y="253" class="ax" text-anchor="middle">n=158</text><rect class="vbar" x="414.5" y="111.2" width="57.0" height="106.8" rx="3" fill="#D03B3B" style="--h:106.8px;--y:111.2px"/><text x="443.0" y="103.2" class="val" text-anchor="middle">17.6%</text><text x="443.0" y="238" class="lbl" text-anchor="middle">Level 3</text><text x="443.0" y="253" class="ax" text-anchor="middle">n=85</text><line x1="36" y1="218" x2="504" y2="218" stroke="#D6DEE8" stroke-width="1"/></svg>
+        <p class="cap">65% of everyone who left held <b>zero stock options</b>. The entire value sits in the
+          0-to-1 step: 24.4% down to 9.4%.</p>
+        <span class="callout good">631 employees are one grant away from the safer group</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-h">Ten verified insights</h2>
+    <p class="sec-s">Every figure was computed by script and independently re-checked against the raw data
+      before inclusion. Click any row to expand.</p>
+    
+      <div class="acc">
+        <button class="acc-h" aria-expanded="false">
+          <span class="rank">1</span>
+          <span class="acc-t">Overtime is the single strongest attrition driver in the dataset: 30.53% of overtime workers lea…</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="acc-b"><div class="acc-inner">
+          <p class="ins">Overtime is the single strongest attrition driver in the dataset: 30.53% of overtime workers leave versus 10.44% of non-overtime workers (2.9x), and the 416 overtime employees (28.3% of headcount) supply 127 of 237 leavers — 53.6% of ALL attrition. Its chi-square (87.6) edges out even JobRole (86.2).</p>
+          <p class="act"><span class="act-l">Action</span>Make OverTime the top-level filter on the attrition dashboard and launch an overtime-governance program (mandatory OT approval, workload rebalancing, comp-off); if the 416 OT workers left at the non-OT rate of 10.44%, expected leavers drop from 127 to ~43 — roughly 84 fewer exits, a 35% cut in total company attrition.</p>
+        </div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-h" aria-expanded="false">
+          <span class="rank">2</span>
+          <span class="acc-t">Risk is multiplicative, not additive: OverTime + JobLevel 1 churns at 52.56% (82 of 156) — rough…</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="acc-b"><div class="acc-inner">
+          <p class="ins">Risk is multiplicative, not additive: OverTime + JobLevel 1 churns at 52.56% (82 of 156) — roughly double either factor alone (JL1 26.34%, OT 30.53%) — and this 10.6%-of-headcount segment produces 34.6% of all company attrition; the closely overlapping OverTime + tenure &lt;=2 years cell runs 50.96% (53 of 104), meaning every second overtime-loaded new joiner is lost.</p>
+          <p class="act"><span class="act-l">Action</span>Build a named 156-person watch list (OT flag AND JobLevel=1) with monthly manager review, OT caps, and accelerated level-2 promotion paths, plus a no-overtime rule for the first 12 months of employment with HR sign-off exceptions; bringing the segment to the No-OT rate of 10.44% saves ~66 of its 82 leavers, and even halving the rate saves ~41 exits per year.</p>
+        </div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-h" aria-expanded="false">
+          <span class="rank">3</span>
+          <span class="acc-t">The lowest income band is the concentration point and overtime turns it into near-certain churn:…</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="acc-b"><div class="acc-inner">
+          <p class="ins">The lowest income band is the concentration point and overtime turns it into near-certain churn: the &lt;$2.5K band holds 226 employees (15.4% of 1470) yet supplies 77 of 237 leavers (32.5%) at 34.07%, and the OverTime + Income&lt;$2.5K cell loses 48 of 70 people (68.57%) — the worst segment in the entire dataset, where an employee is more likely to leave than to stay.</p>
+          <p class="act"><span class="act-l">Action</span>Introduce a pay floor lifting the &lt;$2.5K band into the $2.5-5K band (which runs at 16.44%) and cap or premium-pay overtime for that band, starting with the 70 sub-$2.5K overtime workers: at the 16.44% band rate their expected leavers fall from 48 to ~12 (~36 saved from adjusting only 70 salaries), and band-wide the move retains roughly 30-40 of the 77 annual leavers — likely the highest-ROI action in the analysis.</p>
+        </div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-h" aria-expanded="false">
+          <span class="rank">4</span>
+          <span class="acc-t">Zero equity marks nearly two-thirds of all attrition: StockOptionLevel 0 covers 631 of 1470 peop…</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="acc-b"><div class="acc-inner">
+          <p class="ins">Zero equity marks nearly two-thirds of all attrition: StockOptionLevel 0 covers 631 of 1470 people (42.9%) but 154 of 237 leavers (65%), churning at 24.41% versus 9.4% at level 1 — and the marginal value is entirely in the 0-to-1 step (level 3 rebounds to 17.65%). The gap compounds with life stage: all 470 Single employees sit at level 0 and churn at 25.53%, supplying 120 of 237 leavers (50.6%), rising to 49.62% (65 of 131) when overtime is added.</p>
+          <p class="act"><span class="act-l">Action</span>Roll out a broad-based level-1 equity grant (or equivalent retention bonus vesting over 2-3 years) to the 631 zero-stock employees, prioritizing the 470-person zero-stock-and-single overlap, and audit award eligibility so grants follow role and performance rather than correlating with life stage; closing even a third of the 24.41%-vs-9.4% gap saves on the order of 25-30 leavers per year.</p>
+        </div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-h" aria-expanded="false">
+          <span class="rank">5</span>
+          <span class="acc-t">Attrition is front-loaded to an extreme degree: first-year employees churn at 34.88% (75 of 215)…</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="acc-b"><div class="acc-inner">
+          <p class="ins">Attrition is front-loaded to an extreme degree: first-year employees churn at 34.88% (75 of 215), so 14.6% of headcount generates 31.6% of all attrition — the steepest cliff in the tenure curve, echoed by ages 18-25 at 35.77% (44 of 123). One in three new hires never reaches year two, and recruiting and onboarding spend is written off before payback.</p>
+          <p class="act"><span class="act-l">Action</span>Deploy a structured 30-60-90-day onboarding program with mandatory buddy assignment and quarterly year-one stay interviews, protected by the first-year no-overtime window; bringing the 0-1y rate down to the 2-3y band level of 18.43% saves ~35 exits per year and cuts company attrition from 16.12% to roughly 13.7%.</p>
+        </div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-h" aria-expanded="false">
+          <span class="rank">6</span>
+          <span class="acc-t">Three cheap frontline roles produce 60% of all leavers, and in each the leavers were the underpa…</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="acc-b"><div class="acc-inner">
+          <p class="ins">Three cheap frontline roles produce 60% of all leavers, and in each the leavers were the underpaid ones: Laboratory Technician (62 leavers, 23.94%, leaver median $2,603 vs stayer $3,068, 15.2% gap), Research Scientist (47 leavers, 16.1%, $2,461 vs $2,936, 16.2% gap) and Sales Representative (33 leavers, 39.76% — the worst single-role rate — $2,325 vs $2,643, 12.0% gap) together account for 142 of 237 leavers; the Sales Rep + OverTime cell loses 16 of 24 people (66.67%).</p>
+          <p class="act"><span class="act-l">Action</span>Commission an external market benchmark for exactly these three roles, bring below-median incumbents to role median (targeting the 12-16% within-role gaps), and ban routine overtime for Sales Representatives; a targeted 10-15% adjustment in three roles plausibly addresses a third or more of the 142 annual leavers at the lowest salary base in the company.</p>
+        </div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-h" aria-expanded="false">
+          <span class="rank">7</span>
+          <span class="acc-t">The reward system provides zero retention differentiation: top performers (rating 4) leave at 16…</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="acc-b"><div class="acc-inner">
+          <p class="ins">The reward system provides zero retention differentiation: top performers (rating 4) leave at 16.37% (37 of 226), statistically identical to rating-3 employees at 16.08%, and salary hikes are flat across outcomes (leavers 15.1% vs stayers 15.23% mean, median 14% for both, p=0.614) — the company loses 37 documented top-rated employees a year while paying flight risks and stars the same raise.</p>
+          <p class="act"><span class="act-l">Action</span>Restructure the merit cycle to a differentiated matrix (8-10% baseline, 18-20% for rating-4 employees in high-attrition roles) funded by trimming raises in near-zero-attrition top income bands, and grant level-1 stock to rating-4 staff currently at level 0 (24.41% vs 9.4%); this directly targets and could preserve 15-20 of the 37 annual top-talent losses at flat total budget.</p>
+        </div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-h" aria-expanded="false">
+          <span class="rank">8</span>
+          <span class="acc-t">Satisfaction metrics are threshold effects, not gradients — the signal lives entirely at the bot…</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="acc-b"><div class="acc-inner">
+          <p class="ins">Satisfaction metrics are threshold effects, not gradients — the signal lives entirely at the bottom score: EnvironmentSatisfaction 1 churns at 25.35% (72 of 284, contributing 30% of all attrition) while levels 2-4 cluster at 13.45-14.98%; JobInvolvement 1 shows the steepest spread at 33.73% (28 of 83) vs 9.03% at level 4; WorkLifeBalance 1 runs 31.25% (25 of 80) while the &#x27;best&#x27; score 4 actually churns higher than 3 (17.65% vs 14.22%). Broad wellbeing programs nudging averages upward will not move attrition.</p>
+          <p class="act"><span class="act-l">Action</span>Replace blanket engagement spend with targeted triage of the bottom-score populations only — manager-led root-cause interviews and 90-day fix plans for the 284 EnvSat=1 (~29 savable exits), role-redesign conversations within 30 days for the 83 JobInvolvement=1 (~12 savable), and workload correction for the 80 WLB=1 (~14 savable).</p>
+        </div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-h" aria-expanded="false">
+          <span class="rank">9</span>
+          <span class="acc-t">Promotion stagnation is a retention red herring while manager continuity is the real tenure-side…</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="acc-b"><div class="acc-inner">
+          <p class="ins">Promotion stagnation is a retention red herring while manager continuity is the real tenure-side signal: YearsSinceLastPromotion is statistically insignificant (leavers 1.95 vs stayers 2.23, p=0.199, corr -0.033) and long-stagnant veterans are the MOST loyal cohort (10y+ tenure with 7y+ no promotion: 13.79%; &gt;7.5y promotion outliers: 12.15% — both below the 16.12% average); meanwhile leavers average 2.85 years with their current manager vs 4.37 for stayers (corr -0.156) and 2.9 vs 4.48 years in role (corr -0.161), roughly 5x stronger correlates.</p>
+          <p class="act"><span class="act-l">Action</span>Reallocate promotion-fairness retention budget away from long-tenured stagnant employees toward the 34.88% first-year cohort, add &#x27;manager changes in last 24 months&#x27; as a tracked dashboard risk flag, and require HR review before reassigning employees in their first two years under a manager — same spend, redirected to where each point of improvement saves ~2 employees.</p>
+        </div></div>
+      </div>
+      <div class="acc">
+        <button class="acc-h" aria-expanded="false">
+          <span class="rank">10</span>
+          <span class="acc-t">Single-KPI, rate-ranked reporting systematically misallocates leadership attention: the 16.12% h…</span>
+          <span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="acc-b"><div class="acc-inner">
+          <p class="ins">Single-KPI, rate-ranked reporting systematically misallocates leadership attention: the 16.12% headline conceals an 8.3x internal spread (68.57% in the worst cell vs 8.24% for No-OT JobLevel&gt;=3); rate-ranking points executives at Sales (20.63%) while R&amp;D supplies 133 of 237 leavers (56.1% of all replacement cost) at a below-average 13.84%; and of four pay fields only MonthlyIncome discriminates (corr -0.16, p=4.43e-13) — HourlyRate (p=0.791) and MonthlyRate (p=0.565) are pure noise, as is gender (p=0.291).</p>
+          <p class="act"><span class="act-l">Action</span>Redesign the BI deliverable around risk tiers instead of one KPI: a tiered heat map (OT status x JobLevel x income band) benchmarked against the 8.24% No-OT senior segment, dual rate-plus-absolute-count views per department, alerting when any segment exceeds 2x the company rate, and dropping HourlyRate, MonthlyRate, and gender as retention KPIs — converting the dashboard from descriptive to operational.</p>
+        </div></div>
+      </div>
+  </section>
+
+  <section>
+    <h2 class="sec-h">The plan</h2>
+    <p class="sec-s">Sequenced by speed to impact — governance first, then targeted compensation, then
+      structure.</p>
+    <div class="plans">
+      
+      <div class="plan">
+        <div class="plan-h" style="border-color:#003D77">
+          <h3>Quick wins</h3><span class="period">0-3 months</span>
+        </div>
+        <ul><li>Impose mandatory overtime approval and caps for JobLevel 1 staff and build the named 156-person OT+JobLevel-1 watch list with monthly manager review — normalizing this 52.56% segment even halfway saves ~41 exits per year.</li><li>Institute a no-overtime policy for the first 12 months of employment (HR sign-off for exceptions) — bringing the OT + tenure&lt;=2y rate of 50.96% (53 of 104) to the no-OT rate of 10.44% saves ~42 exits.</li><li>Ban routine overtime for Sales Representatives immediately — cutting the 66.67% OT sub-segment (16 of 24) to the role base rate of 39.76% saves ~6 exits and protects the 83-person feeder pipeline for Sales Executive.</li><li>Launch bottom-score triage lists for the 284 EnvSat=1, 83 JobInvolvement=1, and 80 WLB=1 employees with manager 1:1s and 90-day fix plans — worth roughly 29, 12, and 14 savable exits respectively.</li><li>Adopt a &#x27;no employee at zero trainings&#x27; rule with an automated HRIS report by Q3 — moving the 54-person zero-training cohort from 27.78% to the one-training rate of 12.68% saves ~8 exits for ~54 training seats.</li><li>Rebuild the attrition dashboard now: OverTime as the top-level filter, dual rate-plus-count views, alerting at 2x the 16.12% company rate, and retire HourlyRate (p=0.791), MonthlyRate (p=0.565), and gender (p=0.291) as retention KPIs.</li></ul>
+      </div>
+      
+      <div class="plan">
+        <div class="plan-h" style="border-color:#398A83">
+          <h3>Medium term</h3><span class="period">3-9 months</span>
+        </div>
+        <ul><li>Introduce a pay floor lifting the 226-person &lt;$2.5K band into the $2.5-5K band (16.44% attrition), prioritizing the 70 OT+&lt;2.5K employees — their 48 expected leavers fall to ~12 (~36 saved), with 30-40 of the band&#x27;s 77 annual leavers retainable overall.</li><li>Commission an external market benchmark and within-role compression fixes for Laboratory Technician, Research Scientist, and Sales Representative (leaver pay gaps 15.2%, 16.2%, 12.0%) — plausibly addressing a third or more of their 142 combined annual leavers.</li><li>Extend a level-1 equity grant or 2-3-year vesting retention bonus to the 631 zero-stock employees, prioritizing the 470 zero-stock singles at 25.53% — closing a third of the 24.41%-vs-9.4% gap saves ~25-30 exits per year.</li><li>Restructure the merit cycle into a differentiated matrix (8-10% baseline, 18-20% for rating-4 employees in high-attrition roles), funded by trimming top-band raises — directly targeting the 37 annual rating-4 losses that flat 14% median hikes currently fail to prevent.</li><li>Deploy the structured 30-60-90-day onboarding program with buddy assignment and quarterly year-one stay interviews — cutting first-year attrition from 34.88% to the 2-3y band&#x27;s 18.43% saves ~35 exits and lowers company attrition to ~13.7%.</li><li>Cap consecutive travel assignments, rotate frequent-travel duty across the 1,043-person rare-travel pool, and go virtual-first for the 96 single frequent travelers — moving the 277 frequent travelers from 24.91% to the rare-travel rate of 14.96% saves ~28 exits.</li><li>Offer hybrid days or a transport allowance specifically to the 444 employees commuting 11+ km (blended ~21% rate, 93 leavers) — reaching the 6-10 km rate of 14.47% saves up to ~29 exits, ~10 even at one-third effect.</li></ul>
+      </div>
+      
+      <div class="plan">
+        <div class="plan-h" style="border-color:#00AC4F">
+          <h3>Strategic</h3><span class="period">9+ months</span>
+        </div>
+        <ul><li>Publish a defined 18-24-month JobLevel 1-to-2 progression framework with skill milestones and mid-cycle promotion windows — closing a quarter of the 26.34%-vs-9.74% level gap retains ~22 additional employees per year.</li><li>Institutionalize manager continuity: track &#x27;manager changes in last 24 months&#x27; as a standing risk flag and require HR review before reassigning employees in their first two years under a manager (leavers average 2.85 vs 4.37 years with current manager, p=1.19e-10).</li><li>Permanently reallocate retention spend away from proven-safe populations — the 114 earners above the $16,581 fence (4.39% attrition) and long-stagnant veterans (13.79%, promotion-lag p=0.199) — into the early-tenure and sub-$2.5K segments where rates run 34-69%.</li><li>Build an early-career retention track (12/24-month career-path conversations, mentor pairing, accelerated first-promotion review) for the 729 employees aged 35 and under who supply 67.5% of all attrition — a 3-point reduction across the group saves ~22 exits per year.</li><li>Launch a succession and knowledge-transfer program triggered at 20 years of tenure or age 55 — full coverage of the 66 employees at 21+ years (12.12% attrition) and 47 aged 56-60 (17.02%) is low-cost and converts unplanned senior exits into planned transitions.</li><li>Make tiered risk-segment reporting (OT status x JobLevel x income band, benchmarked to the 8.24% No-OT senior rate) the permanent BI standard so the 8.3x internal risk spread stays visible to leadership and resource allocation follows the fire, not the average.</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-h">Attrition by department and role</h2>
+    <p class="sec-s">The same result the SQL deliverable returns. Click a column header to sort.</p>
+    <div class="tbl-wrap">
+      <table id="t">
+        <thead><tr>
+          <th data-t="s">Department</th><th data-t="s">Job role</th>
+          <th data-t="n">Headcount</th><th data-t="n">Leavers</th>
+          <th data-t="n">Attrition rate</th><th data-t="n">Avg monthly income</th>
+        </tr></thead>
+        <tbody><tr><td>Research &amp; Development</td><td>Laboratory Technician</td><td class="num">259</td><td class="num">62</td><td class="num" style="color:#D03B3B;font-weight:600">23.94%</td><td class="num">$3,237</td></tr><tr><td>Sales</td><td>Sales Executive</td><td class="num">326</td><td class="num">57</td><td class="num" style="color:#D03B3B;font-weight:600">17.48%</td><td class="num">$6,924</td></tr><tr><td>Research &amp; Development</td><td>Research Scientist</td><td class="num">292</td><td class="num">47</td><td class="num" style="color:#003D77;font-weight:600">16.10%</td><td class="num">$3,240</td></tr><tr><td>Sales</td><td>Sales Representative</td><td class="num">83</td><td class="num">33</td><td class="num" style="color:#D03B3B;font-weight:600">39.76%</td><td class="num">$2,626</td></tr><tr><td>Human Resources</td><td>Human Resources</td><td class="num">52</td><td class="num">12</td><td class="num" style="color:#D03B3B;font-weight:600">23.08%</td><td class="num">$4,236</td></tr><tr><td>Research &amp; Development</td><td>Manufacturing Director</td><td class="num">145</td><td class="num">10</td><td class="num" style="color:#003D77;font-weight:600">6.90%</td><td class="num">$7,295</td></tr><tr><td>Research &amp; Development</td><td>Healthcare Representative</td><td class="num">131</td><td class="num">9</td><td class="num" style="color:#003D77;font-weight:600">6.87%</td><td class="num">$7,529</td></tr><tr><td>Research &amp; Development</td><td>Manager</td><td class="num">54</td><td class="num">3</td><td class="num" style="color:#003D77;font-weight:600">5.56%</td><td class="num">$17,130</td></tr><tr><td>Research &amp; Development</td><td>Research Director</td><td class="num">80</td><td class="num">2</td><td class="num" style="color:#003D77;font-weight:600">2.50%</td><td class="num">$16,034</td></tr><tr><td>Sales</td><td>Manager</td><td class="num">37</td><td class="num">2</td><td class="num" style="color:#003D77;font-weight:600">5.41%</td><td class="num">$16,987</td></tr><tr><td>Human Resources</td><td>Manager</td><td class="num">11</td><td class="num">0</td><td class="num" style="color:#003D77;font-weight:600">0.00%</td><td class="num">$18,089</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <b>Full package:</b> Power BI star-schema model &middot; 29 DAX measures with variables &middot;
+    overtime what-if simulator &middot; SQL &middot; Python &middot; 5-minute deck &middot;
+    narrative &amp; recommendations document.
+  </div>
+</footer>
+
+<script>
+(function(){
+  // count-up KPIs
+  function ease(t){return 1-Math.pow(1-t,3)}
+  document.querySelectorAll('.kpi .n').forEach(function(el){
+    var to=parseFloat(el.dataset.to), fmt=el.dataset.fmt, t0=null, dur=1100;
+    function step(ts){
+      if(!t0)t0=ts;
+      var p=Math.min((ts-t0)/dur,1), v=to*ease(p);
+      el.textContent = fmt==='int' ? Math.round(v).toLocaleString()
+                     : fmt==='pct' ? v.toFixed(2)+'%'
+                     : '$'+v.toFixed(1)+'M';
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+
+  // reveal charts on scroll
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.18});
+  document.querySelectorAll('.reveal').forEach(function(n){ io.observe(n); });
+
+  // accordion
+  document.querySelectorAll('.acc-h').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var acc=btn.parentElement, body=acc.querySelector('.acc-b'), open=acc.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+      body.style.maxHeight = open ? body.scrollHeight+'px' : '0px';
+    });
+  });
+
+  // sortable table
+  var tbl=document.getElementById('t'), dir={};
+  tbl.querySelectorAll('th').forEach(function(th,i){
+    th.addEventListener('click', function(){
+      var num = th.dataset.t==='n', asc = !(dir[i]===true);
+      dir={}; dir[i]=asc;
+      tbl.querySelectorAll('th').forEach(function(h){h.classList.remove('asc','desc')});
+      th.classList.add(asc?'asc':'desc');
+      var body=tbl.tBodies[0], rows=Array.prototype.slice.call(body.rows);
+      rows.sort(function(a,b){
+        var x=a.cells[i].textContent.trim(), y=b.cells[i].textContent.trim();
+        if(num){ x=parseFloat(x.replace(/[^0-9.\-]/g,''))||0; y=parseFloat(y.replace(/[^0-9.\-]/g,''))||0;
+                 return asc?x-y:y-x; }
+        return asc ? x.localeCompare(y) : y.localeCompare(x);
+      });
+      rows.forEach(function(r){body.appendChild(r)});
+    });
+  });
+})();
+</script>
+</body>
+</html>

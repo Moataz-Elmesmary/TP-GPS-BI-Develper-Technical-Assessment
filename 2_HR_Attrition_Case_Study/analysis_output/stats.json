@@ -1,0 +1,1012 @@
+{
+ "n": 1470,
+ "leavers": 237,
+ "attrition_rate": 16.12,
+ "by_Department": {
+  "Human Resources": {
+   "n": 63,
+   "leavers": 12,
+   "rate": 19.05
+  },
+  "Research & Development": {
+   "n": 961,
+   "leavers": 133,
+   "rate": 13.84
+  },
+  "Sales": {
+   "n": 446,
+   "leavers": 92,
+   "rate": 20.63
+  }
+ },
+ "by_JobRole": {
+  "Healthcare Representative": {
+   "n": 131,
+   "leavers": 9,
+   "rate": 6.87
+  },
+  "Human Resources": {
+   "n": 52,
+   "leavers": 12,
+   "rate": 23.08
+  },
+  "Laboratory Technician": {
+   "n": 259,
+   "leavers": 62,
+   "rate": 23.94
+  },
+  "Manager": {
+   "n": 102,
+   "leavers": 5,
+   "rate": 4.9
+  },
+  "Manufacturing Director": {
+   "n": 145,
+   "leavers": 10,
+   "rate": 6.9
+  },
+  "Research Director": {
+   "n": 80,
+   "leavers": 2,
+   "rate": 2.5
+  },
+  "Research Scientist": {
+   "n": 292,
+   "leavers": 47,
+   "rate": 16.1
+  },
+  "Sales Executive": {
+   "n": 326,
+   "leavers": 57,
+   "rate": 17.48
+  },
+  "Sales Representative": {
+   "n": 83,
+   "leavers": 33,
+   "rate": 39.76
+  }
+ },
+ "by_OverTime": {
+  "No": {
+   "n": 1054,
+   "leavers": 110,
+   "rate": 10.44
+  },
+  "Yes": {
+   "n": 416,
+   "leavers": 127,
+   "rate": 30.53
+  }
+ },
+ "by_BusinessTravel": {
+  "Non-Travel": {
+   "n": 150,
+   "leavers": 12,
+   "rate": 8.0
+  },
+  "Travel_Frequently": {
+   "n": 277,
+   "leavers": 69,
+   "rate": 24.91
+  },
+  "Travel_Rarely": {
+   "n": 1043,
+   "leavers": 156,
+   "rate": 14.96
+  }
+ },
+ "by_MaritalStatus": {
+  "Divorced": {
+   "n": 327,
+   "leavers": 33,
+   "rate": 10.09
+  },
+  "Married": {
+   "n": 673,
+   "leavers": 84,
+   "rate": 12.48
+  },
+  "Single": {
+   "n": 470,
+   "leavers": 120,
+   "rate": 25.53
+  }
+ },
+ "by_Gender": {
+  "Female": {
+   "n": 588,
+   "leavers": 87,
+   "rate": 14.8
+  },
+  "Male": {
+   "n": 882,
+   "leavers": 150,
+   "rate": 17.01
+  }
+ },
+ "by_EducationField": {
+  "Human Resources": {
+   "n": 27,
+   "leavers": 7,
+   "rate": 25.93
+  },
+  "Life Sciences": {
+   "n": 606,
+   "leavers": 89,
+   "rate": 14.69
+  },
+  "Marketing": {
+   "n": 159,
+   "leavers": 35,
+   "rate": 22.01
+  },
+  "Medical": {
+   "n": 464,
+   "leavers": 63,
+   "rate": 13.58
+  },
+  "Other": {
+   "n": 82,
+   "leavers": 11,
+   "rate": 13.41
+  },
+  "Technical Degree": {
+   "n": 132,
+   "leavers": 32,
+   "rate": 24.24
+  }
+ },
+ "by_JobLevel": {
+  "1": {
+   "n": 543,
+   "leavers": 143,
+   "rate": 26.34
+  },
+  "2": {
+   "n": 534,
+   "leavers": 52,
+   "rate": 9.74
+  },
+  "3": {
+   "n": 218,
+   "leavers": 32,
+   "rate": 14.68
+  },
+  "4": {
+   "n": 106,
+   "leavers": 5,
+   "rate": 4.72
+  },
+  "5": {
+   "n": 69,
+   "leavers": 5,
+   "rate": 7.25
+  }
+ },
+ "by_JobSatisfaction": {
+  "1": {
+   "n": 289,
+   "leavers": 66,
+   "rate": 22.84
+  },
+  "2": {
+   "n": 280,
+   "leavers": 46,
+   "rate": 16.43
+  },
+  "3": {
+   "n": 442,
+   "leavers": 73,
+   "rate": 16.52
+  },
+  "4": {
+   "n": 459,
+   "leavers": 52,
+   "rate": 11.33
+  }
+ },
+ "by_EnvironmentSatisfaction": {
+  "1": {
+   "n": 284,
+   "leavers": 72,
+   "rate": 25.35
+  },
+  "2": {
+   "n": 287,
+   "leavers": 43,
+   "rate": 14.98
+  },
+  "3": {
+   "n": 453,
+   "leavers": 62,
+   "rate": 13.69
+  },
+  "4": {
+   "n": 446,
+   "leavers": 60,
+   "rate": 13.45
+  }
+ },
+ "by_WorkLifeBalance": {
+  "1": {
+   "n": 80,
+   "leavers": 25,
+   "rate": 31.25
+  },
+  "2": {
+   "n": 344,
+   "leavers": 58,
+   "rate": 16.86
+  },
+  "3": {
+   "n": 893,
+   "leavers": 127,
+   "rate": 14.22
+  },
+  "4": {
+   "n": 153,
+   "leavers": 27,
+   "rate": 17.65
+  }
+ },
+ "by_JobInvolvement": {
+  "1": {
+   "n": 83,
+   "leavers": 28,
+   "rate": 33.73
+  },
+  "2": {
+   "n": 375,
+   "leavers": 71,
+   "rate": 18.93
+  },
+  "3": {
+   "n": 868,
+   "leavers": 125,
+   "rate": 14.4
+  },
+  "4": {
+   "n": 144,
+   "leavers": 13,
+   "rate": 9.03
+  }
+ },
+ "by_RelationshipSatisfaction": {
+  "1": {
+   "n": 276,
+   "leavers": 57,
+   "rate": 20.65
+  },
+  "2": {
+   "n": 303,
+   "leavers": 45,
+   "rate": 14.85
+  },
+  "3": {
+   "n": 459,
+   "leavers": 71,
+   "rate": 15.47
+  },
+  "4": {
+   "n": 432,
+   "leavers": 64,
+   "rate": 14.81
+  }
+ },
+ "by_PerformanceRating": {
+  "3": {
+   "n": 1244,
+   "leavers": 200,
+   "rate": 16.08
+  },
+  "4": {
+   "n": 226,
+   "leavers": 37,
+   "rate": 16.37
+  }
+ },
+ "by_StockOptionLevel": {
+  "0": {
+   "n": 631,
+   "leavers": 154,
+   "rate": 24.41
+  },
+  "1": {
+   "n": 596,
+   "leavers": 56,
+   "rate": 9.4
+  },
+  "2": {
+   "n": 158,
+   "leavers": 12,
+   "rate": 7.59
+  },
+  "3": {
+   "n": 85,
+   "leavers": 15,
+   "rate": 17.65
+  }
+ },
+ "by_Education": {
+  "1": {
+   "n": 170,
+   "leavers": 31,
+   "rate": 18.24
+  },
+  "2": {
+   "n": 282,
+   "leavers": 44,
+   "rate": 15.6
+  },
+  "3": {
+   "n": 572,
+   "leavers": 99,
+   "rate": 17.31
+  },
+  "4": {
+   "n": 398,
+   "leavers": 58,
+   "rate": 14.57
+  },
+  "5": {
+   "n": 48,
+   "leavers": 5,
+   "rate": 10.42
+  }
+ },
+ "by_NumCompaniesWorked": {
+  "0": {
+   "n": 197,
+   "leavers": 23,
+   "rate": 11.68
+  },
+  "1": {
+   "n": 521,
+   "leavers": 98,
+   "rate": 18.81
+  },
+  "2": {
+   "n": 146,
+   "leavers": 16,
+   "rate": 10.96
+  },
+  "3": {
+   "n": 159,
+   "leavers": 16,
+   "rate": 10.06
+  },
+  "4": {
+   "n": 139,
+   "leavers": 17,
+   "rate": 12.23
+  },
+  "5": {
+   "n": 63,
+   "leavers": 16,
+   "rate": 25.4
+  },
+  "6": {
+   "n": 70,
+   "leavers": 16,
+   "rate": 22.86
+  },
+  "7": {
+   "n": 74,
+   "leavers": 17,
+   "rate": 22.97
+  },
+  "8": {
+   "n": 49,
+   "leavers": 6,
+   "rate": 12.24
+  },
+  "9": {
+   "n": 52,
+   "leavers": 12,
+   "rate": 23.08
+  }
+ },
+ "by_TrainingTimesLastYear": {
+  "0": {
+   "n": 54,
+   "leavers": 15,
+   "rate": 27.78
+  },
+  "1": {
+   "n": 71,
+   "leavers": 9,
+   "rate": 12.68
+  },
+  "2": {
+   "n": 547,
+   "leavers": 98,
+   "rate": 17.92
+  },
+  "3": {
+   "n": 491,
+   "leavers": 69,
+   "rate": 14.05
+  },
+  "4": {
+   "n": 123,
+   "leavers": 26,
+   "rate": 21.14
+  },
+  "5": {
+   "n": 119,
+   "leavers": 14,
+   "rate": 11.76
+  },
+  "6": {
+   "n": 65,
+   "leavers": 6,
+   "rate": 9.23
+  }
+ },
+ "by_AgeBand": {
+  "18-25": {
+   "n": 123,
+   "leavers": 44,
+   "rate": 35.77
+  },
+  "26-35": {
+   "n": 606,
+   "leavers": 116,
+   "rate": 19.14
+  },
+  "36-45": {
+   "n": 468,
+   "leavers": 43,
+   "rate": 9.19
+  },
+  "46-55": {
+   "n": 226,
+   "leavers": 26,
+   "rate": 11.5
+  },
+  "56-60": {
+   "n": 47,
+   "leavers": 8,
+   "rate": 17.02
+  }
+ },
+ "by_IncomeBand": {
+  "<2.5K": {
+   "n": 226,
+   "leavers": 77,
+   "rate": 34.07
+  },
+  "2.5-5K": {
+   "n": 523,
+   "leavers": 86,
+   "rate": 16.44
+  },
+  "5-7.5K": {
+   "n": 310,
+   "leavers": 30,
+   "rate": 9.68
+  },
+  "7.5-10K": {
+   "n": 130,
+   "leavers": 19,
+   "rate": 14.62
+  },
+  "10-15K": {
+   "n": 148,
+   "leavers": 20,
+   "rate": 13.51
+  },
+  "15-20K": {
+   "n": 133,
+   "leavers": 5,
+   "rate": 3.76
+  }
+ },
+ "by_TenureBand": {
+  "0-1": {
+   "n": 215,
+   "leavers": 75,
+   "rate": 34.88
+  },
+  "2-3": {
+   "n": 255,
+   "leavers": 47,
+   "rate": 18.43
+  },
+  "4-5": {
+   "n": 306,
+   "leavers": 40,
+   "rate": 13.07
+  },
+  "6-10": {
+   "n": 448,
+   "leavers": 55,
+   "rate": 12.28
+  },
+  "11-20": {
+   "n": 180,
+   "leavers": 12,
+   "rate": 6.67
+  },
+  "21+": {
+   "n": 66,
+   "leavers": 8,
+   "rate": 12.12
+  }
+ },
+ "by_DistanceBand": {
+  "1-5": {
+   "n": 632,
+   "leavers": 87,
+   "rate": 13.77
+  },
+  "6-10": {
+   "n": 394,
+   "leavers": 57,
+   "rate": 14.47
+  },
+  "11-20": {
+   "n": 240,
+   "leavers": 48,
+   "rate": 20.0
+  },
+  "21-29": {
+   "n": 204,
+   "leavers": 45,
+   "rate": 22.06
+  }
+ },
+ "by_ExperienceLevel": {
+  "Junior (<5)": {
+   "n": 228,
+   "leavers": 75,
+   "rate": 32.89
+  },
+  "Mid (5-9)": {
+   "n": 493,
+   "leavers": 82,
+   "rate": 16.63
+  },
+  "Senior (10+)": {
+   "n": 749,
+   "leavers": 80,
+   "rate": 10.68
+  }
+ },
+ "numeric_compare": {
+  "Age": {
+   "mean_leavers": 33.61,
+   "mean_stayers": 37.56,
+   "median_leavers": 32.0,
+   "median_stayers": 36.0,
+   "p_value": 1.38e-08
+  },
+  "MonthlyIncome": {
+   "mean_leavers": 4787.09,
+   "mean_stayers": 6832.74,
+   "median_leavers": 3202.0,
+   "median_stayers": 5204.0,
+   "p_value": 4.43e-13
+  },
+  "DistanceFromHome": {
+   "mean_leavers": 10.63,
+   "mean_stayers": 8.92,
+   "median_leavers": 9.0,
+   "median_stayers": 7.0,
+   "p_value": 0.00414
+  },
+  "TotalWorkingYears": {
+   "mean_leavers": 8.24,
+   "mean_stayers": 11.86,
+   "median_leavers": 7.0,
+   "median_stayers": 10.0,
+   "p_value": 1.16e-11
+  },
+  "YearsAtCompany": {
+   "mean_leavers": 5.13,
+   "mean_stayers": 7.37,
+   "median_leavers": 3.0,
+   "median_stayers": 6.0,
+   "p_value": 2.29e-07
+  },
+  "YearsInCurrentRole": {
+   "mean_leavers": 2.9,
+   "mean_stayers": 4.48,
+   "median_leavers": 2.0,
+   "median_stayers": 3.0,
+   "p_value": 3.19e-11
+  },
+  "YearsSinceLastPromotion": {
+   "mean_leavers": 1.95,
+   "mean_stayers": 2.23,
+   "median_leavers": 1.0,
+   "median_stayers": 1.0,
+   "p_value": 0.199
+  },
+  "YearsWithCurrManager": {
+   "mean_leavers": 2.85,
+   "mean_stayers": 4.37,
+   "median_leavers": 2.0,
+   "median_stayers": 3.0,
+   "p_value": 1.19e-10
+  },
+  "PercentSalaryHike": {
+   "mean_leavers": 15.1,
+   "mean_stayers": 15.23,
+   "median_leavers": 14.0,
+   "median_stayers": 14.0,
+   "p_value": 0.614
+  },
+  "DailyRate": {
+   "mean_leavers": 750.36,
+   "mean_stayers": 812.5,
+   "median_leavers": 699.0,
+   "median_stayers": 817.0,
+   "p_value": 0.03
+  },
+  "HourlyRate": {
+   "mean_leavers": 65.57,
+   "mean_stayers": 65.95,
+   "median_leavers": 66.0,
+   "median_stayers": 66.0,
+   "p_value": 0.791
+  },
+  "MonthlyRate": {
+   "mean_leavers": 14559.31,
+   "mean_stayers": 14265.78,
+   "median_leavers": 14618.0,
+   "median_stayers": 14120.0,
+   "p_value": 0.565
+  },
+  "NumCompaniesWorked": {
+   "mean_leavers": 2.94,
+   "mean_stayers": 2.65,
+   "median_leavers": 1.0,
+   "median_stayers": 2.0,
+   "p_value": 0.116
+  },
+  "TrainingTimesLastYear": {
+   "mean_leavers": 2.62,
+   "mean_stayers": 2.83,
+   "median_leavers": 2.0,
+   "median_stayers": 3.0,
+   "p_value": 0.0204
+  }
+ },
+ "chi2": {
+  "Department": {
+   "chi2": 10.8,
+   "p_value": 0.00453,
+   "significant": true
+  },
+  "JobRole": {
+   "chi2": 86.2,
+   "p_value": 2.75e-15,
+   "significant": true
+  },
+  "OverTime": {
+   "chi2": 87.6,
+   "p_value": 8.16e-21,
+   "significant": true
+  },
+  "BusinessTravel": {
+   "chi2": 24.2,
+   "p_value": 5.61e-06,
+   "significant": true
+  },
+  "MaritalStatus": {
+   "chi2": 46.2,
+   "p_value": 9.46e-11,
+   "significant": true
+  },
+  "Gender": {
+   "chi2": 1.1,
+   "p_value": 0.291,
+   "significant": false
+  },
+  "EducationField": {
+   "chi2": 16.0,
+   "p_value": 0.00677,
+   "significant": true
+  },
+  "JobLevel": {
+   "chi2": 72.5,
+   "p_value": 6.63e-15,
+   "significant": true
+  },
+  "JobSatisfaction": {
+   "chi2": 17.5,
+   "p_value": 0.000556,
+   "significant": true
+  },
+  "EnvironmentSatisfaction": {
+   "chi2": 22.5,
+   "p_value": 5.12e-05,
+   "significant": true
+  },
+  "WorkLifeBalance": {
+   "chi2": 16.3,
+   "p_value": 0.000973,
+   "significant": true
+  },
+  "StockOptionLevel": {
+   "chi2": 60.6,
+   "p_value": 4.38e-13,
+   "significant": true
+  }
+ },
+ "outliers": {
+  "MonthlyIncome": {
+   "q1": 2911.0,
+   "q3": 8379.0,
+   "upper_fence": 16581.0,
+   "n_outliers": 114,
+   "outlier_attrition_rate": 4.39
+  },
+  "YearsAtCompany": {
+   "q1": 3.0,
+   "q3": 9.0,
+   "upper_fence": 18.0,
+   "n_outliers": 104,
+   "outlier_attrition_rate": 9.62
+  },
+  "TotalWorkingYears": {
+   "q1": 6.0,
+   "q3": 15.0,
+   "upper_fence": 28.5,
+   "n_outliers": 63,
+   "outlier_attrition_rate": 7.94
+  },
+  "YearsSinceLastPromotion": {
+   "q1": 0.0,
+   "q3": 3.0,
+   "upper_fence": 7.5,
+   "n_outliers": 107,
+   "outlier_attrition_rate": 12.15
+  }
+ },
+ "segments": [
+  {
+   "label": "OverTime + Sales Rep",
+   "n": 24,
+   "leavers": 16,
+   "rate": 66.67
+  },
+  {
+   "label": "OverTime + JobLevel 1",
+   "n": 156,
+   "leavers": 82,
+   "rate": 52.56
+  },
+  {
+   "label": "OverTime + Single",
+   "n": 131,
+   "leavers": 65,
+   "rate": 49.62
+  },
+  {
+   "label": "OverTime + Tenure<=2y",
+   "n": 104,
+   "leavers": 53,
+   "rate": 50.96
+  },
+  {
+   "label": "OverTime + JobSat=1",
+   "n": 84,
+   "leavers": 30,
+   "rate": 35.71
+  },
+  {
+   "label": "OverTime + Income<2.5K",
+   "n": 70,
+   "leavers": 48,
+   "rate": 68.57
+  },
+  {
+   "label": "No OT + JobLevel>=3",
+   "n": 279,
+   "leavers": 23,
+   "rate": 8.24
+  },
+  {
+   "label": "FreqTravel + Single",
+   "n": 96,
+   "leavers": 37,
+   "rate": 38.54
+  },
+  {
+   "label": "First year employees",
+   "n": 215,
+   "leavers": 75,
+   "rate": 34.88
+  },
+  {
+   "label": "10y+ tenure, 7y+ no promotion",
+   "n": 116,
+   "leavers": 16,
+   "rate": 13.79
+  },
+  {
+   "label": "High performers (rating 4)",
+   "n": 226,
+   "leavers": 37,
+   "rate": 16.37
+  },
+  {
+   "label": "No stock + Single",
+   "n": 470,
+   "leavers": 120,
+   "rate": 25.53
+  }
+ ],
+ "income_gap_by_role": {
+  "Healthcare Representative": {
+   "median_income_leavers": 8722.0,
+   "median_income_stayers": 6768.0,
+   "gap_pct": -28.9
+  },
+  "Human Resources": {
+   "median_income_leavers": 2652.5,
+   "median_income_stayers": 3668.5,
+   "gap_pct": 27.7
+  },
+  "Laboratory Technician": {
+   "median_income_leavers": 2603.0,
+   "median_income_stayers": 3068.0,
+   "gap_pct": 15.2
+  },
+  "Manager": {
+   "median_income_leavers": 18824.0,
+   "median_income_stayers": 17444.0,
+   "gap_pct": -7.9
+  },
+  "Manufacturing Director": {
+   "median_income_leavers": 6812.5,
+   "median_income_stayers": 6447.0,
+   "gap_pct": -5.7
+  },
+  "Research Director": {
+   "median_income_leavers": 19395.5,
+   "median_income_stayers": 16417.5,
+   "gap_pct": -18.1
+  },
+  "Research Scientist": {
+   "median_income_leavers": 2461.0,
+   "median_income_stayers": 2936.0,
+   "gap_pct": 16.2
+  },
+  "Sales Executive": {
+   "median_income_leavers": 6728.0,
+   "median_income_stayers": 6201.0,
+   "gap_pct": -8.5
+  },
+  "Sales Representative": {
+   "median_income_leavers": 2325.0,
+   "median_income_stayers": 2643.0,
+   "gap_pct": 12.0
+  }
+ },
+ "pointbiserial_corr": {
+  "TotalWorkingYears": -0.171,
+  "JobLevel": -0.169,
+  "YearsInCurrentRole": -0.161,
+  "MonthlyIncome": -0.16,
+  "Age": -0.159,
+  "YearsWithCurrManager": -0.156,
+  "StockOptionLevel": -0.137,
+  "YearsAtCompany": -0.134,
+  "JobInvolvement": -0.13,
+  "JobSatisfaction": -0.103,
+  "EnvironmentSatisfaction": -0.103,
+  "WorkLifeBalance": -0.064,
+  "TrainingTimesLastYear": -0.059,
+  "DailyRate": -0.057,
+  "YearsSinceLastPromotion": -0.033,
+  "PercentSalaryHike": -0.013,
+  "HourlyRate": -0.007,
+  "MonthlyRate": 0.015,
+  "NumCompaniesWorked": 0.043,
+  "DistanceFromHome": 0.078
+ },
+ "experience_summary": {
+  "Junior (<5)": 228,
+  "Mid (5-9)": 493,
+  "Senior (10+)": 749
+ },
+ "experience_attrition": {
+  "Junior (<5)": {
+   "n": 228,
+   "leavers": 75,
+   "rate": 32.89
+  },
+  "Mid (5-9)": {
+   "n": 493,
+   "leavers": 82,
+   "rate": 16.63
+  },
+  "Senior (10+)": {
+   "n": 749,
+   "leavers": 80,
+   "rate": 10.68
+  }
+ },
+ "sql_task7_expected": [
+  {
+   "Department": "Research & Development",
+   "JobRole": "Laboratory Technician",
+   "AttritionCount": 62,
+   "AvgMonthlyIncome": 3237.17,
+   "Headcount": 259
+  },
+  {
+   "Department": "Sales",
+   "JobRole": "Sales Executive",
+   "AttritionCount": 57,
+   "AvgMonthlyIncome": 6924.28,
+   "Headcount": 326
+  },
+  {
+   "Department": "Research & Development",
+   "JobRole": "Research Scientist",
+   "AttritionCount": 47,
+   "AvgMonthlyIncome": 3239.97,
+   "Headcount": 292
+  },
+  {
+   "Department": "Sales",
+   "JobRole": "Sales Representative",
+   "AttritionCount": 33,
+   "AvgMonthlyIncome": 2626.0,
+   "Headcount": 83
+  },
+  {
+   "Department": "Human Resources",
+   "JobRole": "Human Resources",
+   "AttritionCount": 12,
+   "AvgMonthlyIncome": 4235.75,
+   "Headcount": 52
+  },
+  {
+   "Department": "Research & Development",
+   "JobRole": "Manufacturing Director",
+   "AttritionCount": 10,
+   "AvgMonthlyIncome": 7295.14,
+   "Headcount": 145
+  },
+  {
+   "Department": "Research & Development",
+   "JobRole": "Healthcare Representative",
+   "AttritionCount": 9,
+   "AvgMonthlyIncome": 7528.76,
+   "Headcount": 131
+  },
+  {
+   "Department": "Research & Development",
+   "JobRole": "Manager",
+   "AttritionCount": 3,
+   "AvgMonthlyIncome": 17130.33,
+   "Headcount": 54
+  },
+  {
+   "Department": "Research & Development",
+   "JobRole": "Research Director",
+   "AttritionCount": 2,
+   "AvgMonthlyIncome": 16033.55,
+   "Headcount": 80
+  },
+  {
+   "Department": "Sales",
+   "JobRole": "Manager",
+   "AttritionCount": 2,
+   "AvgMonthlyIncome": 16986.97,
+   "Headcount": 37
+  },
+  {
+   "Department": "Human Resources",
+   "JobRole": "Manager",
+   "AttritionCount": 0,
+   "AvgMonthlyIncome": 18088.64,
+   "Headcount": 11
+  }
+ ]
+}

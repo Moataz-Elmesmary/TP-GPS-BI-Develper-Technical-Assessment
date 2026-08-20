@@ -1,0 +1,30 @@
+table DimDepartment
+	lineageTag: b257fe3e-e8d0-4a75-ba2f-7f9a10879445
+
+	column Department
+		dataType: string
+		lineageTag: 8200bc20-54ee-436e-9daf-8fb6f51b82b9
+		summarizeBy: none
+		sourceColumn: Department
+
+	column DepartmentKey
+		dataType: int64
+		isHidden
+		lineageTag: 22bcaaf8-e625-4cb1-920b-28d0c7c3d946
+		summarizeBy: none
+		sourceColumn: DepartmentKey
+
+	partition DimDepartment = m
+		mode: import
+		source =
+				let
+				    Source = Employees_Raw,
+				    KeptColumns = Table.SelectColumns(Source, {"Department"}),
+				    RemovedDuplicates = Table.Distinct(KeptColumns),
+				    Sorted = Table.Sort(RemovedDuplicates, {{"Department", Order.Ascending}}),
+				    AddedKey = Table.AddIndexColumn(Sorted, "DepartmentKey", 1, 1, Int64.Type)
+				in
+				    AddedKey
+
+	annotation PBI_ResultType = Table
+

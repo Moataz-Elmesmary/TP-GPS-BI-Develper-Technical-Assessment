@@ -1,0 +1,118 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 20.799999237060547,
+        "y": 56
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 50,
+            "y": 92.576347216615886
+          },
+          "nodeIndex": "DimDemographics",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 491.596944753974,
+            "y": 511.80252626356332
+          },
+          "nodeIndex": "DimDepartment",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 53.612568517776367,
+            "y": 511.77791916168758
+          },
+          "nodeIndex": "DimEducation",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 618.45358500933162,
+            "y": 182.641817023319
+          },
+          "nodeIndex": "DimJobRole",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 334.24014431227613,
+            "y": -50
+          },
+          "nodeIndex": "DimTravel",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 334.22099874934253,
+            "y": 161.6084682290757
+          },
+          "nodeIndex": "FactEmployee",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1136.4535850093316,
+            "y": 316.88895958084379
+          },
+          "nodeIndex": "OT Reduction Scenario",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 852.45358500933162,
+            "y": 218.88895958084379
+          },
+          "nodeIndex": "DaxMeasures",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

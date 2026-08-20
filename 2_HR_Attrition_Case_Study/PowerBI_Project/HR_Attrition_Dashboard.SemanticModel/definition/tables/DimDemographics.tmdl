@@ -1,0 +1,43 @@
+table DimDemographics
+	lineageTag: 4613d4cd-2598-4769-b2ba-97dbce0d1f33
+
+	column Gender
+		dataType: string
+		lineageTag: a56e3da2-2bef-4c1b-9d1c-20a88328e9a5
+		summarizeBy: none
+		sourceColumn: Gender
+
+	column MaritalStatus
+		dataType: string
+		lineageTag: cb75e468-4a1a-4154-91d5-2ed6281ce1d7
+		summarizeBy: none
+		sourceColumn: MaritalStatus
+
+	column AgeBand
+		dataType: string
+		lineageTag: 4e5a8cb5-fdfb-4ef6-b974-6944b359ff95
+		summarizeBy: none
+		sourceColumn: AgeBand
+
+	column DemographicsKey
+		dataType: int64
+		isHidden
+		lineageTag: b60bfb2e-4bd9-414a-b94f-2686373b3291
+		summarizeBy: none
+		sourceColumn: DemographicsKey
+
+	partition DimDemographics = m
+		mode: import
+		source =
+				let
+				    Source = Employees_Raw,
+				    AddedAgeBand = Table.AddColumn(Source, "AgeBand", each if [Age] <= 25 then "18-25" else if [Age] <= 35 then "26-35" else if [Age] <= 45 then "36-45" else if [Age] <= 55 then "46-55" else "56-60", type text),
+				    KeptColumns = Table.SelectColumns(AddedAgeBand, {"Gender", "MaritalStatus", "AgeBand"}),
+				    RemovedDuplicates = Table.Distinct(KeptColumns),
+				    Sorted = Table.Sort(RemovedDuplicates, {{"Gender", Order.Ascending}, {"MaritalStatus", Order.Ascending}, {"AgeBand", Order.Ascending}}),
+				    AddedKey = Table.AddIndexColumn(Sorted, "DemographicsKey", 1, 1, Int64.Type)
+				in
+				    AddedKey
+
+	annotation PBI_ResultType = Table
+

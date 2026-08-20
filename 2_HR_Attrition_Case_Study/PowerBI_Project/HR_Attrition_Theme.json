@@ -1,0 +1,103 @@
+{
+ "name": "Teleperformance Attrition Theme",
+ "dataColors": [
+  "#003D77",
+  "#00AC4F",
+  "#398A83",
+  "#7596B5",
+  "#D03B3B",
+  "#F59E0B",
+  "#0B78C2",
+  "#52514E"
+ ],
+ "background": "#FFFFFF",
+ "foreground": "#003D77",
+ "tableAccent": "#003D77",
+ "good": "#00AC4F",
+ "neutral": "#F59E0B",
+ "bad": "#D03B3B",
+ "textClasses": {
+  "title": {
+   "fontSize": 13,
+   "fontFace": "Segoe UI Semibold",
+   "color": "#003D77"
+  },
+  "label": {
+   "fontSize": 10,
+   "fontFace": "Segoe UI",
+   "color": "#52514E"
+  },
+  "callout": {
+   "fontSize": 34,
+   "fontFace": "Segoe UI",
+   "color": "#003D77"
+  },
+  "header": {
+   "fontSize": 12,
+   "fontFace": "Segoe UI Semibold",
+   "color": "#003D77"
+  }
+ },
+ "visualStyles": {
+  "*": {
+   "*": {
+    "background": [
+     {
+      "color": {
+       "solid": {
+        "color": "#FFFFFF"
+       }
+      },
+      "transparency": 0
+     }
+    ],
+    "border": [
+     {
+      "show": true,
+      "color": {
+       "solid": {
+        "color": "#DCE6F1"
+       }
+      },
+      "radius": 8
+     }
+    ],
+    "title": [
+     {
+      "show": true,
+      "fontColor": {
+       "solid": {
+        "color": "#003D77"
+       }
+      },
+      "fontSize": 12,
+      "fontFamily": "Segoe UI Semibold"
+     }
+    ]
+   }
+  },
+  "page": {
+   "*": {
+    "background": [
+     {
+      "color": {
+       "solid": {
+        "color": "#F4F7FB"
+       }
+      },
+      "transparency": 0
+     }
+    ],
+    "outspace": [
+     {
+      "color": {
+       "solid": {
+        "color": "#F4F7FB"
+       }
+      }
+     }
+    ]
+   }
+  }
+ }
+}

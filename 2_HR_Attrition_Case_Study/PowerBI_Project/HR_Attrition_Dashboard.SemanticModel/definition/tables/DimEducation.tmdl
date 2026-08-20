@@ -1,0 +1,44 @@
+table DimEducation
+	lineageTag: e9fdcdf6-1d12-4ff0-97a1-76120343ad88
+
+	column Education
+		dataType: int64
+		isHidden
+		lineageTag: 5d45ce3e-8b6d-40e4-b145-d25097a3daa4
+		summarizeBy: none
+		sourceColumn: Education
+
+	column EducationField
+		dataType: string
+		lineageTag: 91432087-2bf3-4034-934d-10f6b78fe2df
+		summarizeBy: none
+		sourceColumn: EducationField
+
+	column EducationLabel
+		dataType: string
+		lineageTag: 65073598-e93c-4f44-bdae-639575556597
+		summarizeBy: none
+		sourceColumn: EducationLabel
+
+	column EducationKey
+		dataType: int64
+		isHidden
+		lineageTag: 1b877002-9f3c-4463-b0bf-be1329009082
+		summarizeBy: none
+		sourceColumn: EducationKey
+
+	partition DimEducation = m
+		mode: import
+		source =
+				let
+				    Source = Employees_Raw,
+				    KeptColumns = Table.SelectColumns(Source, {"Education", "EducationField"}),
+				    RemovedDuplicates = Table.Distinct(KeptColumns),
+				    AddedLabel = Table.AddColumn(RemovedDuplicates, "EducationLabel", each if [Education] = 1 then "Below College" else if [Education] = 2 then "College" else if [Education] = 3 then "Bachelor" else if [Education] = 4 then "Master" else "Doctor", type text),
+				    Sorted = Table.Sort(AddedLabel, {{"Education", Order.Ascending}, {"EducationField", Order.Ascending}}),
+				    AddedKey = Table.AddIndexColumn(Sorted, "EducationKey", 1, 1, Int64.Type)
+				in
+				    AddedKey
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,20 @@
+relationship 58d5cdd5-cf68-4589-bace-3cbc5ce68eab
+	fromColumn: FactEmployee.DepartmentKey
+	toColumn: DimDepartment.DepartmentKey
+
+relationship edb80597-52ac-4454-b9f2-14d41ad58243
+	fromColumn: FactEmployee.JobRoleKey
+	toColumn: DimJobRole.JobRoleKey
+
+relationship 02de9098-ed03-45e4-a718-0939a4d31e6d
+	fromColumn: FactEmployee.EducationKey
+	toColumn: DimEducation.EducationKey
+
+relationship 732b8630-dd81-4c36-a959-c521091ddd1d
+	fromColumn: FactEmployee.DemographicsKey
+	toColumn: DimDemographics.DemographicsKey
+
+relationship cfaf3515-1ee8-4b48-941d-6ab131bed7cd
+	fromColumn: FactEmployee.TravelKey
+	toColumn: DimTravel.TravelKey
+
