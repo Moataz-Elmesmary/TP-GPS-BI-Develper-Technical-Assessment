@@ -297,17 +297,4 @@ assets/                             screenshots used in this README
 
 ---
 
-## Notes
-
-The dataset is the public **IBM HR Analytics Employee Attrition** sample (1,470 synthetic
-employee records). No real employee data is involved.
-
-Replacement cost assumes six months of salary per hire — the one figure in the analysis not taken
-from the data. It appears in exactly two measures, so substituting a company's own multiplier
-updates everything downstream.
-
-Every number quoted in the report, the deck and this README is derived by the scripts in
-`python/` and was checked against the raw file before use. Their derivations are listed in
-[`docs/Figure_Sources.md`](2_HR_Attrition_Case_Study/docs/Figure_Sources.md).
-
 **Moataz Elmesmary** — BI Developer case study
