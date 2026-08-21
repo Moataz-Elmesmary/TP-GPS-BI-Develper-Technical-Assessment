@@ -10,7 +10,8 @@ a what‑if simulator, an interactive web dashboard, and a costed recommendation
 <img alt="Dataset" src="https://img.shields.io/badge/dataset-1%2C470%20employees-00AC4F">
 </p>
 
-![Executive Overview](assets/powerbi-01-overview.png)
+<img width="1600" height="1111" alt="web-01-overview" src="https://github.com/user-attachments/assets/08d8d9da-c23c-42e8-8812-0e793b37ad0e" />
+
 
 ---
 
